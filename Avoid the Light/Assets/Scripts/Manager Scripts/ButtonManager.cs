@@ -7,20 +7,23 @@ using UnityEngine.SceneManagement;
 // ToGameScene(): For Main Menu scene, takes player to the Gameplay scene when clicked- might change this to level select if we do that?
 // ToCreditsScene(): For Main Menu scene, takes player to the credits scene when clicked.
 // GameQuit(): For Main Menu scene and pause screen, quits the game when clicked.
+
 public class ButtonManager : MonoBehaviour
 {
+    public GameSceneManager sceneManager;
+
     public void ToMainMenu()
     {
-        SceneManager.LoadScene("Main Menu");
+        sceneManager.LoadScene(0);
     }
     public void ToGameScene()
     {
-        SceneManager.LoadScene("Gameplay");
+        sceneManager.LoadScene(2);
     }
 
     public void ToCreditsScene()
     {
-        SceneManager.LoadScene("Credits");
+        sceneManager.LoadScene(1);
     }
     public void GameQuit()
     {
