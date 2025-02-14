@@ -15,6 +15,7 @@ public class ButtonManager : MonoBehaviour
     public void ToMainMenu()
     {
         sceneManager.LoadScene(0);
+        PauseMenu.isPaused = false; // Make sure the game isn't paused when you quit to main menu.
     }
     public void ToGameScene()
     {
