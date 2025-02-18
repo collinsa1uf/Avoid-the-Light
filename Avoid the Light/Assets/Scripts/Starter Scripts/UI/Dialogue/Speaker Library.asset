@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f99fe7f6f1fa3ea448a5c34a3da02937, type: 3}
+  m_Name: Speaker Library
+  m_EditorClassIdentifier: 
+  speakerSpriteList:
+  - name: Chibi
+    sprite: {fileID: 21300000, guid: d866a48e648bbfa488f149ad6ced706d, type: 3}
+  - name: Knight
+    sprite: {fileID: 21300000, guid: 50723b125b75b854a9032996cedbd9cc, type: 3}
