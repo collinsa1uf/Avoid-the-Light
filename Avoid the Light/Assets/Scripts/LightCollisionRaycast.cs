@@ -19,7 +19,12 @@ public class LightCollision : MonoBehaviour
         {
             if (hit.transform.gameObject.name == "Player")
             {
-                Debug.Log("Hit player");
+                DraculaController.isInLight = true;
+                //Debug.Log("Hit player");
+            }
+            else
+            {
+                DraculaController.isInLight = false;
             }
         }
     }
