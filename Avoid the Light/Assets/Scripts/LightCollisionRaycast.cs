@@ -20,6 +20,8 @@ public class LightCollision : MonoBehaviour
             if (hit.transform.gameObject.name == "Player")
             {
                 Debug.Log("Hit player");
+
+                PlayerHealthbar.DamagePlayer();
             }
         }
     }
