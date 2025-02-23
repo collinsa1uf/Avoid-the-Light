@@ -30,13 +30,14 @@ public class DraculaController : MonoBehaviour
     private bool isBeingDamaged = false;
     private bool isBeingHealed = false;
     public static bool isInLight = false;
+    public HealthBar healthBar;
 
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-
+  
     }
 
     // Update is called once per frame
@@ -143,6 +144,7 @@ public class DraculaController : MonoBehaviour
     void DamageHealth()
     {
         currentHealth -= damageNum;
+        healthBar.SetHealth(currentHealth);
     }
 
     void DamagePlayer()
@@ -153,8 +155,8 @@ public class DraculaController : MonoBehaviour
             isBeingDamaged = true;
             InvokeRepeating("DamageHealth", 0f, 1f);
         }
-        // Stop damaging player if not in light
-        else if (!isInLight && isBeingDamaged)
+        // Stop damaging player if not in light or health is 0
+        else if ((!isInLight && isBeingDamaged) || currentHealth <= 0)
         {
             CancelInvoke("DamageHealth");
         }
@@ -163,6 +165,7 @@ public class DraculaController : MonoBehaviour
     void RegenHealth()
     {
         currentHealth += regenNum;
+        healthBar.SetHealth(currentHealth);
     }
 
     void RegenPlayer()
