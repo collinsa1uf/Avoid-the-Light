@@ -7,7 +7,6 @@ public class DraculaController : MonoBehaviour
 {
     public float movementSpeed = 1.0f;
     public float jumpStrength = 4.0f;
-
     public float rotationSpeed = 1.0f;
     public float verticalAngleLimit = 85.0f;
 
@@ -19,7 +18,9 @@ public class DraculaController : MonoBehaviour
     private CapsuleCollider capsuleCollider;
     public float crouchHeight = 0.5f;
     public float standHeight = 2.0f;
- 
+    public float checkHeightOffset = 0.9f; //I think this height is good but adjust if needed
+    public LayerMask obstacleLayer;
+
 
     private Vector3 currentRotation;
 
@@ -116,16 +117,20 @@ public class DraculaController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.C))
         {
-            isCrouched = !isCrouched;
             if (isCrouched)
             {
-                // lower the stance of the player, reducing the collider so the player can go under the table
-                capsuleCollider.height = crouchHeight;
+                //This will only allow the player stand up if there's no obstacle detected
+                if (!Physics.Raycast(transform.position, Vector3.up, checkHeightOffset, obstacleLayer))
+                {
+                    isCrouched = false;
+                    capsuleCollider.height = standHeight;
+                }
             }
             else
             {
-                // return to original stance
-                capsuleCollider.height = standHeight;
+                //the code for crouching down
+                isCrouched = true;
+                capsuleCollider.height = crouchHeight;
             }
         }
     }
