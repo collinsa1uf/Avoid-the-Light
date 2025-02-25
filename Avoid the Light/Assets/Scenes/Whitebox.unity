@@ -1022,10 +1022,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 3
-  jumpStrength: 2
+  jumpStrength: 4
   rotationSpeed: 1
   verticalAngleLimit: 85
   jumpCount: 0
+  crouchHeight: 0.5
+  standHeight: 2
+  checkHeightOffset: 1.1
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  healthBar: {fileID: 0}
 --- !u!54 &101236218
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3392,7 +3399,7 @@ GameObject:
   - component: {fileID: 290477331}
   - component: {fileID: 290477330}
   - component: {fileID: 290477329}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (17)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8398,7 +8405,7 @@ GameObject:
   - component: {fileID: 702584812}
   - component: {fileID: 702584811}
   - component: {fileID: 702584810}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20802,7 +20809,7 @@ GameObject:
   - component: {fileID: 1493827411}
   - component: {fileID: 1493827410}
   - component: {fileID: 1493827409}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (18)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21154,7 +21161,7 @@ GameObject:
   - component: {fileID: 1502231590}
   - component: {fileID: 1502231589}
   - component: {fileID: 1502231588}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (30)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
