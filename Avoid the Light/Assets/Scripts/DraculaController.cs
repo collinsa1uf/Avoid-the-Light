@@ -6,7 +6,7 @@ using TMPro;
 public class DraculaController : MonoBehaviour
 {
     public float movementSpeed = 1.0f;
-    public float jumpStrength = 1.0f;
+    public float jumpStrength = 4.0f;
 
     public float rotationSpeed = 1.0f;
     public float verticalAngleLimit = 85.0f;
@@ -15,7 +15,11 @@ public class DraculaController : MonoBehaviour
     public int jumpCount = 0;
 
     //===Crouching variables===
-    public bool isCrouched = false;
+    private bool isCrouched = false;
+    private CapsuleCollider capsuleCollider;
+    public float crouchHeight = 0.5f;
+    public float standHeight = 2.0f;
+ 
 
     private Vector3 currentRotation;
 
@@ -37,6 +41,7 @@ public class DraculaController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        capsuleCollider = GetComponent<CapsuleCollider>();
   
     }
 
@@ -46,6 +51,9 @@ public class DraculaController : MonoBehaviour
         MovePlayer();
         Jump();
         Rotate();
+
+        // ==== Crouch Behavior ====
+        Crouch();
 
 
         // ===== Health behaviors =====
@@ -104,25 +112,25 @@ public class DraculaController : MonoBehaviour
         }
     }
 
-    //void Crouch()
-    //{
-    //    if(Input.GetKey(KeyCode.C))
-    //    {
-    //        isCrouched = !isCrouched;
-    //        if(!isCrouched)
-    //        {
-    //            // lower the stance of the player, reducing the collider so the player can go under the table
-    //            gameObject.transform.position = vector
-    //        }
-    //        else
-    //        {
-    //            // return to original stance
-    //        }
-    //    }
+    void Crouch()
+    {
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            isCrouched = !isCrouched;
+            if (isCrouched)
+            {
+                // lower the stance of the player, reducing the collider so the player can go under the table
+                capsuleCollider.height = crouchHeight;
+            }
+            else
+            {
+                // return to original stance
+                capsuleCollider.height = standHeight;
+            }
+        }
+    }
 
-    //}
 
-    
 
     void Rotate()
     {
