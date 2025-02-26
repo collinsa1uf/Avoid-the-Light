@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 1030579237273733213}
   serializedVersion: 2
   m_LocalRotation: {x: 0.07792084, y: -0, z: -0, w: 0.9969596}
-  m_LocalPosition: {x: 0, y: -0.51000166, z: 3.8600173}
+  m_LocalPosition: {x: 0, y: 0.05, z: 0.33}
   m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4844,11 +4844,12 @@ GameObject:
   m_Component:
   - component: {fileID: 3350330602826248501}
   - component: {fileID: 59655087270569569}
-  - component: {fileID: 429952498946472855}
   - component: {fileID: 4901265809381619277}
+  - component: {fileID: 4233989377972158111}
+  - component: {fileID: 9192614319304563851}
   m_Layer: 0
   m_Name: Spot Light
-  m_TagString: Untagged
+  m_TagString: Light
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4863,7 +4864,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0.98333037, y: -0, z: -0, w: 0.18182811}
   m_LocalPosition: {x: 1.357, y: 4.246, z: 8.53}
-  m_LocalScale: {x: 2.9905, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1742136989058671245}
@@ -4934,18 +4935,6 @@ Light:
   m_LightUnit: 1
   m_LuxAtDistance: 1
   m_EnableSpotReflector: 1
---- !u!114 &429952498946472855
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1217294343955048734}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5493b9cf25914d844b1d1a880b72c26c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &4901265809381619277
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4969,3 +4958,40 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
+--- !u!65 &4233989377972158111
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1217294343955048734}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &9192614319304563851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1217294343955048734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1a0934cb47771c4a9c91d5c83caf9e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  distance: 10
+  scaleX: 1
+  scaleY: 1
+  scaleZ: 1
