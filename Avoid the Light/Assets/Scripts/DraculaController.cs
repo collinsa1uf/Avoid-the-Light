@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Unity.VisualScripting;
+using UnityEngine.UIElements;
 
 public class DraculaController : MonoBehaviour
 {
@@ -60,7 +62,7 @@ public class DraculaController : MonoBehaviour
         // ===== Health behaviors =====
         DamagePlayer();
         RegenPlayer();
-        Debug.Log("Health: " + currentHealth);
+        //Debug.Log("Health: " + currentHealth);
     }
 
     void MovePlayer()
