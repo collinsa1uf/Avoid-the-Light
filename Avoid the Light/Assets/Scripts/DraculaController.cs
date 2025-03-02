@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using Unity.VisualScripting;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
+// using UnityEngine.UIElements;
 
 public class DraculaController : MonoBehaviour
 {
@@ -39,13 +40,17 @@ public class DraculaController : MonoBehaviour
     public static bool isInLight = false;
     public HealthBar healthBar;
 
+    //==== UI Elements ====
+    public Image DamageIndicator;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         capsuleCollider = GetComponent<CapsuleCollider>();
-  
+        DamageIndicator = GameObject.Find("DamageIndicator").GetComponent<Image>();
+        DamageIndicator.enabled = false;
+
     }
 
     // Update is called once per frame
@@ -160,6 +165,7 @@ public class DraculaController : MonoBehaviour
     {
         currentHealth -= damageNum;
         healthBar.SetHealth(currentHealth);
+        
     }
 
     void DamagePlayer()
@@ -169,11 +175,13 @@ public class DraculaController : MonoBehaviour
         {
             isBeingDamaged = true;
             InvokeRepeating("DamageHealth", 0f, 1f);
+            DamageIndicator.enabled = true;
         }
         // Stop damaging player if not in light or health is 0
         else if ((!isInLight && isBeingDamaged) || currentHealth <= 0)
         {
             CancelInvoke("DamageHealth");
+            DamageIndicator.enabled = false;
         }
     }
 
