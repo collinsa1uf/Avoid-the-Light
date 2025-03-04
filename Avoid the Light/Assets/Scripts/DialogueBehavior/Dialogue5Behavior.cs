@@ -2,17 +2,17 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class ThirdtDialogueTrigger : MonoBehaviour
+public class FifthDialogueTrigger : MonoBehaviour
 {
-    public Image ThirdDialoguePopup;
-    public TextMeshProUGUI StoryDialogue3;
+    public Image FifthDialoguePopup;
+    public TextMeshProUGUI StoryDialogue5;
 
     private bool isPopupActive = false;
 
     void Start()
     {
-        ThirdDialoguePopup.gameObject.SetActive(false);
-        StoryDialogue3.gameObject.SetActive(false);
+        FifthDialoguePopup.gameObject.SetActive(false);
+        StoryDialogue5.gameObject.SetActive(false);
     }
 
     void Update()
@@ -27,16 +27,16 @@ public class ThirdtDialogueTrigger : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            ThirdDialoguePopup.gameObject.SetActive(true);
-            StoryDialogue3.gameObject.SetActive(true);
+            FifthDialoguePopup.gameObject.SetActive(true);
+            StoryDialogue5.gameObject.SetActive(true);
             isPopupActive = true;
         }
     }
 
     void ClosePopup()
     {
-        ThirdDialoguePopup.gameObject.SetActive(false);
-        StoryDialogue3.gameObject.SetActive(false);
+        FifthDialoguePopup.gameObject.SetActive(false);
+        StoryDialogue5.gameObject.SetActive(false);
         isPopupActive = false;
     }
 }
