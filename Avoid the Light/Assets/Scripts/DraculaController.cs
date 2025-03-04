@@ -29,6 +29,8 @@ public class DraculaController : MonoBehaviour
 
     Rigidbody rb;
 
+    // Game Over Manager
+    private GameOverMenu gameOverManager;
 
     // ===== Health variables =====
     private float maxHealth = 100f;
@@ -51,23 +53,28 @@ public class DraculaController : MonoBehaviour
         DamageIndicator = GameObject.Find("DamageIndicator").GetComponent<Image>();
         DamageIndicator.enabled = false;
         currentRotation = new Vector3(-90, 0, 0);
-    }
+
+        gameOverManager = FindFirstObjectByType<GameOverMenu>();
+}
 
     // Update is called once per frame
     void Update()
     {
-        MovePlayer();
-        Jump();
-        Rotate();
+        if (!PauseMenu.isPaused)
+        {
+            MovePlayer();
+            Jump();
+            Rotate();
 
-        // ==== Crouch Behavior ====
-        Crouch();
+            // ==== Crouch Behavior ====
+            Crouch();
 
 
-        // ===== Health behaviors =====
-        DamagePlayer();
-        RegenPlayer();
-        //Debug.Log("Health: " + currentHealth);
+            // ===== Health behaviors =====
+            DamagePlayer();
+            RegenPlayer();
+            //Debug.Log("Health: " + currentHealth);
+        }
     }
 
     void MovePlayer()
@@ -165,7 +172,12 @@ public class DraculaController : MonoBehaviour
     {
         currentHealth -= damageNum;
         healthBar.SetHealth(currentHealth);
-        
+
+        if (currentHealth <= 0)
+        {
+            currentHealth = 0;
+            gameOverManager.GameOver();
+        }
     }
 
     void DamagePlayer()
