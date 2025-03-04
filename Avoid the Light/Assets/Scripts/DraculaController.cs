@@ -50,7 +50,7 @@ public class DraculaController : MonoBehaviour
         capsuleCollider = GetComponent<CapsuleCollider>();
         DamageIndicator = GameObject.Find("DamageIndicator").GetComponent<Image>();
         DamageIndicator.enabled = false;
-
+        currentRotation = new Vector3(-90, 0, 0);
     }
 
     // Update is called once per frame
