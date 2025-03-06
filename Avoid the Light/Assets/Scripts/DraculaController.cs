@@ -8,7 +8,8 @@ using UnityEngine.UI;
 
 public class DraculaController : MonoBehaviour
 {
-    public float movementSpeed = 1.0f;
+    public float walkSpeed = 1.0f;
+    public float sprintSpeed = 2.0f;
     public float jumpStrength = 4.0f;
     public float rotationSpeed = 1.0f;
     public float verticalAngleLimit = 85.0f;
@@ -99,9 +100,15 @@ public class DraculaController : MonoBehaviour
             direction += Camera.main.transform.right;
         }
 
+        // Sprint
+        float movementSpeed = 0f;
         if (Input.GetKey(KeyCode.LeftShift))
         {
-            movementSpeed *= 1.007f;
+            movementSpeed = sprintSpeed;
+        }
+        else
+        {
+            movementSpeed = walkSpeed;
         }
 
         // Normalize direction to prevent faster diagonal movement
