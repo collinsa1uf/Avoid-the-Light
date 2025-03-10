@@ -12,7 +12,6 @@ public class TitleScreenAnimation : MonoBehaviour
 
     void Start()
     {
-        
         characterImage.anchoredPosition = startPos;
     }
 
