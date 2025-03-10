@@ -1,0 +1,59 @@
+using System.Collections;
+using UnityEngine;
+using UnityEngine.UI; 
+
+public class CurtainInteraction : MonoBehaviour
+{
+    public Animator curtainAnimator; 
+    public GameObject promptText; 
+
+    private bool isPlayerNear = false;
+    private bool isCurtainClosed = false;
+
+    void Start()
+    {
+        promptText.SetActive(false);
+        curtainAnimator.SetBool("isClosed", false);
+    }
+
+    void Update()
+    {
+        if (isPlayerNear && Input.GetKeyDown(KeyCode.E) && !isCurtainClosed)
+        {
+            CloseCurtain();
+        }
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player")) 
+        {
+            isPlayerNear = true;
+            promptText.SetActive(true); 
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            isPlayerNear = false;
+            promptText.SetActive(false); 
+        }
+    }
+
+    void CloseCurtain()
+    {
+        curtainAnimator.SetBool("isClosed", true);
+        isCurtainClosed = true;
+        promptText.SetActive(false);
+
+        StartCoroutine(DisableAnimator());
+    }
+
+    IEnumerator DisableAnimator()
+    {
+        yield return new WaitForSeconds(1.5f);
+        curtainAnimator.enabled = false;
+    }
+}
