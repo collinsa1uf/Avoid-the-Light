@@ -7,15 +7,30 @@ public class TitleScreenAnimation : MonoBehaviour
     public Vector2 endPos;  
     public float slideSpeed = 2f;
 
-    private float t = 0f;  
-    private bool hasSlidIn = false;
+    [SerializeField] private float t = 0f;  
+    [SerializeField] private bool hasSlidIn = false;
 
     void Start()
     {
+        ResetAnimation();   
         characterImage.anchoredPosition = startPos;
     }
 
     void Update()
+    {
+        RunAnimation();
+    }
+
+    void ResetAnimation()
+    {
+        t = 0f;
+        hasSlidIn = false;
+        characterImage.anchoredPosition = startPos;
+
+        RunAnimation();
+    }
+
+    void RunAnimation()
     {
         if (!hasSlidIn)  // Run this only once
         {
