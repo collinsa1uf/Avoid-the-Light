@@ -5,6 +5,7 @@ public class LightCollisionManager : MonoBehaviour
     public GameObject player;
     private static GameObject spotlightHittingPlayer = null;
     private static BoxCollider boxCollider = null;
+    private static GameObject spotlightHittingCurtain = null;
     private bool hitPlayer = false;
     private bool isVisible = false;
 
@@ -22,9 +23,11 @@ public class LightCollisionManager : MonoBehaviour
         {
             DraculaController.isInLight = false;
         }
+
+        CheckIfHittingCurtain();
     }
 
-    public static void SetSpotlight(GameObject spotlight)
+    public static void SetSpotlightHittingPlayer(GameObject spotlight)
     {
         spotlightHittingPlayer = spotlight;
         boxCollider = spotlightHittingPlayer.GetComponent<BoxCollider>();
@@ -54,6 +57,19 @@ public class LightCollisionManager : MonoBehaviour
                     isVisible = false;
                 }
             }
+        }
+    }
+
+    public static void SetSpotlightHittingCurtain(GameObject spotlight)
+    {
+        spotlightHittingCurtain = spotlight;
+    }
+
+    void CheckIfHittingCurtain()
+    {
+        if (spotlightHittingCurtain != null)
+        {
+            spotlightHittingCurtain.SetActive(false);
         }
     }
 
