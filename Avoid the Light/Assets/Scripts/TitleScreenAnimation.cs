@@ -12,8 +12,8 @@ public class TitleScreenAnimation : MonoBehaviour
 
     void Start()
     {
-        PauseMenu.isPaused = false;
         ResetAnimation();   
+        characterImage.anchoredPosition = startPos;
     }
 
     void Update()
