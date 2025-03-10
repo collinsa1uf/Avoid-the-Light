@@ -1297,6 +1297,7 @@ GameObject:
   - component: {fileID: 1620253549}
   - component: {fileID: 1620253551}
   - component: {fileID: 1620253550}
+  - component: {fileID: 1620253552}
   m_Layer: 5
   m_Name: Dracula
   m_TagString: Untagged
@@ -1320,7 +1321,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 960, y: 0}
+  m_AnchoredPosition: {x: -61, y: 0}
   m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1620253550
@@ -1361,6 +1362,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1620253548}
   m_CullTransparentMesh: 1
+--- !u!114 &1620253552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1620253548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2aaa3e95e703934ea0caacf47f5b0e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterImage: {fileID: 1620253549}
+  startPos: {x: -61, y: 0}
+  endPos: {x: 1040, y: 0}
+  slideSpeed: 1.5
 --- !u!1 &1808802267
 GameObject:
   m_ObjectHideFlags: 0
