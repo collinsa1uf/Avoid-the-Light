@@ -5,6 +5,7 @@ using UnityEngine;
 public class LightCollisionBoxcast : MonoBehaviour
 {
     RaycastHit[] hit;
+    RaycastHit hit2;
     BoxCollider lightCollider;
     public float distance = 10f;
     public float scaleX = 1.0f;
@@ -22,6 +23,7 @@ public class LightCollisionBoxcast : MonoBehaviour
     void Update()
     {
         Boxcast();
+        Raycast();
     }
 
     void Boxcast()
@@ -41,11 +43,23 @@ public class LightCollisionBoxcast : MonoBehaviour
         if (playerInArray)
         {
             hitPlayer = true;
-            LightCollisionManager.SetSpotlight(gameObject);
+            LightCollisionManager.SetSpotlightHittingPlayer(gameObject);
         }
         else
         {
             hitPlayer = false;
+        }
+    }
+
+    void Raycast()
+    {
+        RaycastHit hit2;
+        if (Physics.Raycast(lightCollider.transform.position, lightCollider.transform.forward, out hit2))
+        {
+            if (hit2.transform.gameObject.layer == 6)
+            {
+                LightCollisionManager.SetSpotlightHittingCurtain(gameObject);
+            }
         }
     }
 
