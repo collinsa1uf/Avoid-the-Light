@@ -194,15 +194,16 @@ public class DraculaController : MonoBehaviour
         {
             isBeingDamaged = true;
             InvokeRepeating("DamageHealth", 0f, 1f);
-            DamageIndicator.enabled = true;
+            StartCoroutine(FadeInDamageIndicator());
         }
         // Stop damaging player if not in light or health is 0
         else if ((!isInLight && isBeingDamaged) || currentHealth <= 0)
         {
             CancelInvoke("DamageHealth");
-            DamageIndicator.enabled = false;
+            StartCoroutine(FadeOutDamageIndicator());
         }
     }
+
 
     void RegenHealth()
     {
@@ -226,4 +227,42 @@ public class DraculaController : MonoBehaviour
             CancelInvoke("RegenHealth");
         }
     }
+
+    IEnumerator FadeInDamageIndicator()
+    {
+        DamageIndicator.enabled = true; // Making it visible
+        Color color = DamageIndicator.color;
+        float duration = 0.5f; // Time to fully fade in
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            color.a = Mathf.Lerp(0f, 1f, elapsed / duration);
+            DamageIndicator.color = color;
+            yield return null;
+        }
+        color.a = 1f;
+        DamageIndicator.color = color;
+    }
+
+    IEnumerator FadeOutDamageIndicator()
+    {
+        Color color = DamageIndicator.color;
+        float duration = 0.5f;
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            color.a = Mathf.Lerp(1f, 0f, elapsed / duration);
+            DamageIndicator.color = color;
+            yield return null;
+        }
+        color.a = 0f;
+        DamageIndicator.color = color;
+        DamageIndicator.enabled = false; // Fading it back to transparent
+    }
+
 }
+
