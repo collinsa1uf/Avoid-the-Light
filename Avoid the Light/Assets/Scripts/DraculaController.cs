@@ -40,7 +40,7 @@ public class DraculaController : MonoBehaviour
     private float regenNum = 1f;
     private bool isBeingDamaged = false;
     private bool isBeingHealed = false;
-    public static bool isInLight = false;
+    public static bool isInLight;
     public HealthBar healthBar;
 
     //==== UI Elements ====
@@ -56,7 +56,9 @@ public class DraculaController : MonoBehaviour
         currentRotation = new Vector3(-90, 0, 0);
 
         gameOverManager = FindFirstObjectByType<GameOverMenu>();
-}
+
+        isInLight = false;
+    }
 
     // Update is called once per frame
     void Update()
