@@ -19,7 +19,7 @@ public class GameOverMenu : MonoBehaviour
 
     public void RetryLevel()
     {
-        PauseMenu.isPaused = false;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().name);
+        Time.timeScale = 1f;
     }
 }
