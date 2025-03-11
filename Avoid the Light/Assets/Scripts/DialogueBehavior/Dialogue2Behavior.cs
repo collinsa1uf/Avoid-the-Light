@@ -1,18 +1,24 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Collections;
 
-public class SecondDialogueTrigger : MonoBehaviour
+public class secondDialogueTrigger : MonoBehaviour
 {
     public Image SecondDialoguePopup;
     public TextMeshProUGUI StoryDialogue2;
-
     private bool isPopupActive = false;
+    private bool hasTriggeredDialogue = false;  
+    public float fadeDuration = 1f;  
 
     void Start()
     {
         SecondDialoguePopup.gameObject.SetActive(false);
         StoryDialogue2.gameObject.SetActive(false);
+
+        
+        SetAlpha(SecondDialoguePopup, 0f);
+        SetAlpha(StoryDialogue2, 0f);
     }
 
     void Update()
@@ -25,11 +31,15 @@ public class SecondDialogueTrigger : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player") && !hasTriggeredDialogue)
         {
             SecondDialoguePopup.gameObject.SetActive(true);
             StoryDialogue2.gameObject.SetActive(true);
             isPopupActive = true;
+            hasTriggeredDialogue = true;
+
+            
+            StartCoroutine(FadeIn());
         }
     }
 
@@ -38,5 +48,33 @@ public class SecondDialogueTrigger : MonoBehaviour
         SecondDialoguePopup.gameObject.SetActive(false);
         StoryDialogue2.gameObject.SetActive(false);
         isPopupActive = false;
+    }
+
+   
+    private IEnumerator FadeIn()
+    {
+        float time = 0f;
+
+        
+        while (time < fadeDuration)
+        {
+            time += Time.deltaTime;
+            float alpha = Mathf.Clamp01(time / fadeDuration);  
+            SetAlpha(SecondDialoguePopup, alpha);
+            SetAlpha(StoryDialogue2, alpha);
+            yield return null;
+        }
+
+        
+        SetAlpha(SecondDialoguePopup, 1f);
+        SetAlpha(StoryDialogue2, 1f);
+    }
+
+   
+    private void SetAlpha(Graphic graphic, float alpha)
+    {
+        Color color = graphic.color;
+        color.a = alpha;
+        graphic.color = color;
     }
 }
