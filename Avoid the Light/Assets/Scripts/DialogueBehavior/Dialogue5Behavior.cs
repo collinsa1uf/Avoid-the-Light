@@ -52,6 +52,7 @@ public class FifthDialogueTrigger : MonoBehaviour
         Time.timeScale = 1f; // Resume time
         PauseMenu.isPaused = false;
         SceneManager.LoadScene("Credits");
+        Cursor.visible = true;
     }
 
     

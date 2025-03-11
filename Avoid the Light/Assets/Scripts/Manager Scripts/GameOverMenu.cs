@@ -15,6 +15,8 @@ public class GameOverMenu : MonoBehaviour
         PauseMenu.isPaused = true;
         gameOverUI.SetActive(true);
         Time.timeScale = 0f;
+
+        Cursor.visible = true; // Show cursor
     }
 
     public void RetryLevel()
