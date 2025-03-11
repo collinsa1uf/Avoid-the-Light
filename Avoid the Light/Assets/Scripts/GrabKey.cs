@@ -2,6 +2,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using JetBrains.Annotations;
 
 public class GrabKey : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class GrabKey : MonoBehaviour
     public GameObject modelKey;
     public TMP_Text dialogueText;
     private bool isNearKey = false;
+    public static bool hasKey = false;
 
     void Start()
     {
@@ -42,6 +44,7 @@ public class GrabKey : MonoBehaviour
             inHandKey.SetActive(true);
             dialogueText.gameObject.SetActive(false);
             modelKey.SetActive(false);
+            hasKey = true;
         }
     }
 
