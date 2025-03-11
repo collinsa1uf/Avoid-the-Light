@@ -49,6 +49,8 @@ public class DraculaController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Cursor.visible = false; // Hide cursor when playing.
+
         rb = GetComponent<Rigidbody>();
         capsuleCollider = GetComponent<CapsuleCollider>();
         DamageIndicator = GameObject.Find("DamageIndicator").GetComponent<Image>();

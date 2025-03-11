@@ -5,5 +5,6 @@ public class SceneChange : MonoBehaviour
     {
         SceneManager.LoadSceneAsync(sceneName);
         Time.timeScale = 1f;
+        Cursor.visible = true;
     }
 }
