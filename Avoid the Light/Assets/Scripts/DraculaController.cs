@@ -46,6 +46,11 @@ public class DraculaController : MonoBehaviour
     //==== UI Elements ====
     public Image DamageIndicator;
 
+    //==== Sound Effects ====
+    [SerializeField] private AudioClip damageSoundClip;
+    [SerializeField] private AudioClip walkSoundClip;
+    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -90,18 +95,22 @@ public class DraculaController : MonoBehaviour
         if (Input.GetKey(KeyCode.W))
         {
             direction += Camera.main.transform.forward;
+            //SoundFXManager.instance.PlaySoundFXClip(walkSoundClip, transform, 1f);
         }
         if (Input.GetKey(KeyCode.S))
         {
             direction -= Camera.main.transform.forward;
+            //SoundFXManager.instance.PlaySoundFXClip(walkSoundClip, transform, 1f);
         }
         if (Input.GetKey(KeyCode.A))
         {
             direction -= Camera.main.transform.right;
+            //SoundFXManager.instance.PlaySoundFXClip(walkSoundClip, transform, 1f);
         }
         if (Input.GetKey(KeyCode.D))
         {
             direction += Camera.main.transform.right;
+            //SoundFXManager.instance.PlaySoundFXClip(walkSoundClip, transform, 1f);
         }
 
         // Sprint
@@ -199,6 +208,7 @@ public class DraculaController : MonoBehaviour
             isBeingDamaged = true;
             InvokeRepeating("DamageHealth", 0f, 1f);
             StartCoroutine(FadeInDamageIndicator());
+            //SoundFXManager.instance.PlaySoundFXClip(damageSoundClip, transform, 1f);
         }
         // Stop damaging player if not in light or health is 0
         else if ((!isInLight && isBeingDamaged) || currentHealth <= 0)
