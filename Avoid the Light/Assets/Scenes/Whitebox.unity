@@ -1194,6 +1194,8 @@ MonoBehaviour:
     m_Bits: 8
   healthBar: {fileID: 839484741}
   DamageIndicator: {fileID: 0}
+  damageSoundClip: {fileID: 0}
+  walkSoundClip: {fileID: 8300000, guid: a4670e5ab28574a449f99e99235ae113, type: 3}
 --- !u!54 &101236218
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -29235,6 +29237,51 @@ MonoBehaviour:
   FourthDialoguePopup: {fileID: 251719634}
   StoryDialogue4: {fileID: 1548055500}
   fadeDuration: 1
+--- !u!1 &2140225696
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2140225698}
+  - component: {fileID: 2140225697}
+  m_Layer: 0
+  m_Name: SoundFXManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2140225697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2140225696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43ae99d2c05f3594588f6d7e49e86d04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundFXObject: {fileID: 7375173672231844435, guid: 6efab6b5d388061479911304ee6ba30f, type: 3}
+--- !u!4 &2140225698
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2140225696}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -13.198209, y: -2.8428957, z: -3.9186282}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &4233989379017542959 stripped
 BoxCollider:
   m_CorrespondingSourceObject: {fileID: 4233989377972158111, guid: a9b9eac9370cfd740a3fe907a09db1a3, type: 3}
@@ -29304,3 +29351,4 @@ SceneRoots:
   - {fileID: 2090411988}
   - {fileID: 66387192}
   - {fileID: 1514449029}
+  - {fileID: 2140225698}
