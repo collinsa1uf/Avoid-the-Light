@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class FifthDialogueTrigger : MonoBehaviour
 {
@@ -37,7 +38,6 @@ public class FifthDialogueTrigger : MonoBehaviour
             StoryDialogue5.gameObject.SetActive(true);
             isPopupActive = true;
             hasTriggeredDialogue = true;
-
             
             StartCoroutine(FadeIn());
         }
@@ -48,6 +48,11 @@ public class FifthDialogueTrigger : MonoBehaviour
         FifthDialoguePopup.gameObject.SetActive(false);
         StoryDialogue5.gameObject.SetActive(false);
         isPopupActive = false;
+
+        Time.timeScale = 1f; // Resume time
+        PauseMenu.isPaused = false;
+        SceneManager.LoadScene("Credits");
+        Cursor.visible = true;
     }
 
     
@@ -68,6 +73,10 @@ public class FifthDialogueTrigger : MonoBehaviour
         
         SetAlpha(FifthDialoguePopup, 1f);
         SetAlpha(StoryDialogue5, 1f);
+
+        PauseMenu.isPaused = true; // restrict player movement.
+        yield return new WaitForSeconds(0.5f); // Delay before pausing to ensure dialogue fades in
+        Time.timeScale = 0f; // Since it's the last one I want to pause the game for the player as they read it.
     }
 
   

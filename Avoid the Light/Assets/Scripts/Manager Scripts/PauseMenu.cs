@@ -7,6 +7,7 @@ public class PauseMenu : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        isPaused = false;
         pauseMenu.SetActive(false);
     }
 
@@ -31,6 +32,8 @@ public class PauseMenu : MonoBehaviour
         pauseMenu.SetActive(true);
         Time.timeScale = 0f;
         isPaused = true;
+
+        Cursor.visible = true;
     }
 
     public void ResumeGame()
@@ -38,5 +41,7 @@ public class PauseMenu : MonoBehaviour
         pauseMenu.SetActive(false);
         Time.timeScale = 1f;
         isPaused = false;
+
+        Cursor.visible = false;
     }
 }

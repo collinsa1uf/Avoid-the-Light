@@ -22,6 +22,10 @@ public class CurtainInteraction : MonoBehaviour
         {
             CloseCurtain();
         }
+        else if (isCurtainClosed)
+        {
+            promptText.SetActive(false);
+        }
     }
 
     void OnTriggerEnter(Collider other)

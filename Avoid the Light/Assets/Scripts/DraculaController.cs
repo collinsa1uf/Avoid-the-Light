@@ -40,15 +40,22 @@ public class DraculaController : MonoBehaviour
     private float regenNum = 1f;
     private bool isBeingDamaged = false;
     private bool isBeingHealed = false;
-    public static bool isInLight = false;
+    public static bool isInLight;
     public HealthBar healthBar;
 
     //==== UI Elements ====
     public Image DamageIndicator;
 
+    //==== Sound Effects ====
+    [SerializeField] private AudioClip damageSoundClip;
+    [SerializeField] private AudioClip walkSoundClip;
+    
+
     // Start is called before the first frame update
     void Start()
     {
+        Cursor.visible = false; // Hide cursor when playing.
+
         rb = GetComponent<Rigidbody>();
         capsuleCollider = GetComponent<CapsuleCollider>();
         DamageIndicator = GameObject.Find("DamageIndicator").GetComponent<Image>();
@@ -56,7 +63,9 @@ public class DraculaController : MonoBehaviour
         currentRotation = new Vector3(-90, 0, 0);
 
         gameOverManager = FindFirstObjectByType<GameOverMenu>();
-}
+
+        isInLight = false;
+    }
 
     // Update is called once per frame
     void Update()
@@ -86,18 +95,22 @@ public class DraculaController : MonoBehaviour
         if (Input.GetKey(KeyCode.W))
         {
             direction += Camera.main.transform.forward;
+            //SoundFXManager.instance.PlaySoundFXClip(walkSoundClip, transform, 1f);
         }
         if (Input.GetKey(KeyCode.S))
         {
             direction -= Camera.main.transform.forward;
+            //SoundFXManager.instance.PlaySoundFXClip(walkSoundClip, transform, 1f);
         }
         if (Input.GetKey(KeyCode.A))
         {
             direction -= Camera.main.transform.right;
+            //SoundFXManager.instance.PlaySoundFXClip(walkSoundClip, transform, 1f);
         }
         if (Input.GetKey(KeyCode.D))
         {
             direction += Camera.main.transform.right;
+            //SoundFXManager.instance.PlaySoundFXClip(walkSoundClip, transform, 1f);
         }
 
         // Sprint
@@ -194,15 +207,17 @@ public class DraculaController : MonoBehaviour
         {
             isBeingDamaged = true;
             InvokeRepeating("DamageHealth", 0f, 1f);
-            DamageIndicator.enabled = true;
+            StartCoroutine(FadeInDamageIndicator());
+            //SoundFXManager.instance.PlaySoundFXClip(damageSoundClip, transform, 1f);
         }
         // Stop damaging player if not in light or health is 0
         else if ((!isInLight && isBeingDamaged) || currentHealth <= 0)
         {
             CancelInvoke("DamageHealth");
-            DamageIndicator.enabled = false;
+            StartCoroutine(FadeOutDamageIndicator());
         }
     }
+
 
     void RegenHealth()
     {
@@ -226,4 +241,42 @@ public class DraculaController : MonoBehaviour
             CancelInvoke("RegenHealth");
         }
     }
+
+    IEnumerator FadeInDamageIndicator()
+    {
+        DamageIndicator.enabled = true; // Making it visible
+        Color color = DamageIndicator.color;
+        float duration = 0.5f; // Time to fully fade in
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            color.a = Mathf.Lerp(0f, 1f, elapsed / duration);
+            DamageIndicator.color = color;
+            yield return null;
+        }
+        color.a = 1f;
+        DamageIndicator.color = color;
+    }
+
+    IEnumerator FadeOutDamageIndicator()
+    {
+        Color color = DamageIndicator.color;
+        float duration = 0.5f;
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            color.a = Mathf.Lerp(1f, 0f, elapsed / duration);
+            DamageIndicator.color = color;
+            yield return null;
+        }
+        color.a = 0f;
+        DamageIndicator.color = color;
+        DamageIndicator.enabled = false; // Fading it back to transparent
+    }
+
 }
+
