@@ -37,6 +37,7 @@ public class MovableObject : MonoBehaviour
 
         if (distance < interactionRange && Input.GetKeyDown(KeyCode.E) && !isMoving)
         {
+            indicatorUI.SetActive(false);
             StartCoroutine(MoveToNextWaypoint());
         }
     }
@@ -44,6 +45,11 @@ public class MovableObject : MonoBehaviour
     void UpdateIndicatorPosition()
     {
         if (!indicatorUI || !player) return;
+
+        if (isMoving)
+        {
+            indicatorUI.SetActive(false);
+        }
 
         Vector3 directionToPlayer = (player.position - transform.position).normalized;
 
@@ -53,6 +59,11 @@ public class MovableObject : MonoBehaviour
 
         indicatorUI.transform.LookAt(player);
         indicatorUI.transform.Rotate(0, 180, 0);
+
+        if (currentWaypointIndex == waypoints.Length)
+        {
+            indicatorUI.SetActive(false);
+        }
     }
 
     IEnumerator MoveToNextWaypoint()
