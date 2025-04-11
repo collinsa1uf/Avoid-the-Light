@@ -5,16 +5,24 @@ public class LightCollisionManager : MonoBehaviour
     public GameObject player;
     private static GameObject spotlightHittingPlayer = null;
     private static BoxCollider boxCollider = null;
+    private static Transform parent = null;
     private static GameObject spotlightHittingCurtain = null;
-    private bool hitPlayer = false;
+    private static bool hitPlayer = false;
     private bool isVisible = false;
+
+    private void Start()
+    {
+        hitPlayer = false;
+        isVisible = false;
+    }
 
     // Update is called once per frame
     void Update()
     {
-        CheckIfHittingPlayer();
+        //CheckIfHittingPlayer();
         CheckIfVisible();
 
+        Debug.Log("1. " + hitPlayer + "  2. " + isVisible);
         if (hitPlayer && isVisible)
         {
             DraculaController.isInLight = true;
@@ -33,21 +41,38 @@ public class LightCollisionManager : MonoBehaviour
         boxCollider = spotlightHittingPlayer.GetComponent<BoxCollider>();
     }
 
-    void CheckIfHittingPlayer()
+    /*void CheckIfHittingPlayer()
     {
         if (spotlightHittingPlayer != null)
         {
             hitPlayer = spotlightHittingPlayer.GetComponent<LightCollisionBoxcast>().GetHitPlayer();
         }
-    }
+    }*/
 
     void CheckIfVisible()
     {
-        if (boxCollider != null)
+        /*if (boxCollider != null)
         {
             RaycastHit hit;
             if (Physics.Linecast(player.transform.position, boxCollider.transform.position, out hit))
             {
+                if (hit.collider.gameObject.tag == "Light")
+                {
+                    isVisible = true;
+                }
+                else
+                {
+                    isVisible = false;
+                }
+            }
+        }*/
+        if (parent != null)
+        {
+            RaycastHit hit;
+            LayerMask allLayers = Physics.AllLayers;
+            if (Physics.Linecast(player.transform.position, parent.GetComponent<BoxCollider>().transform.position, out hit, allLayers, QueryTriggerInteraction.Ignore)) 
+            {
+                Debug.Log(hit.collider.gameObject.name);
                 if (hit.collider.gameObject.tag == "Light")
                 {
                     isVisible = true;
@@ -73,11 +98,25 @@ public class LightCollisionManager : MonoBehaviour
         }
     }
 
+    public static void SetHitPlayer(bool hit)
+    {
+        hitPlayer = hit;
+    }
+
+    public static void SetParent(Transform p)
+    {
+        parent = p;
+    }
+
     private void OnDrawGizmos()
     {
-        if (spotlightHittingPlayer != null)
+        /*if (spotlightHittingPlayer != null)
         {
             Debug.DrawLine(player.transform.position, boxCollider.transform.position, Color.red);
+        }*/
+        if (parent != null)
+        {
+            Debug.DrawLine(player.transform.position, parent.GetComponent<BoxCollider>().transform.position, Color.red);
         }
     }
 }

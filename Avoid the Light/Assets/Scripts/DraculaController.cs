@@ -36,8 +36,8 @@ public class DraculaController : MonoBehaviour
     // ===== Health variables =====
     private float maxHealth = 100f;
     private float currentHealth = 100f;
-    private float damageNum = 10f;
-    private float regenNum = 1f;
+    public float damageNum = 20f;
+    public float regenNum = 1f;
     private bool isBeingDamaged = false;
     private bool isBeingHealed = false;
     public static bool isInLight;
