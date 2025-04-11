@@ -46,7 +46,7 @@ public class MovableObject : MonoBehaviour
     {
         if (!indicatorUI || !player) return;
 
-        if(isMoving)
+        if (isMoving)
         {
             indicatorUI.SetActive(false);
         }
