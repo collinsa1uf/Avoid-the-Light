@@ -60,7 +60,7 @@ public class DraculaController : MonoBehaviour
         capsuleCollider = GetComponent<CapsuleCollider>();
         DamageIndicator = GameObject.Find("DamageIndicator").GetComponent<Image>();
         DamageIndicator.enabled = false;
-        currentRotation = new Vector3(-90, 0, 0);
+        currentRotation = new Vector3(-180, 0, 0);
 
         gameOverManager = FindFirstObjectByType<GameOverMenu>();
 
@@ -115,7 +115,7 @@ public class DraculaController : MonoBehaviour
 
         // Sprint
         float movementSpeed = 0f;
-        if (Input.GetKey(KeyCode.LeftShift))
+        if (Input.GetKey(KeyCode.LeftShift) && !isCrouched)
         {
             movementSpeed = sprintSpeed;
         }
