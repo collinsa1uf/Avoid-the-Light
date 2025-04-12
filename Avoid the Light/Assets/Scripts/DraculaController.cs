@@ -49,9 +49,12 @@ public class DraculaController : MonoBehaviour
     //==== Sound Effects ====
     private AudioSource walkAudioSource;
     private AudioSource breathAudioSource;
+    private AudioSource regenAudioSource;
 
     public AudioClip walkSoundClip;
     public AudioClip breathingAudioClip;
+    public AudioClip regenAudioClip;
+    
     private bool isMoving = false;
 
     public AudioClip jumpSoundClip;
@@ -77,6 +80,7 @@ public class DraculaController : MonoBehaviour
 
         walkAudioSource = gameObject.AddComponent<AudioSource>();
         breathAudioSource = gameObject.AddComponent<AudioSource>();
+        regenAudioSource = gameObject.AddComponent<AudioSource>();
 
     }
 
@@ -151,7 +155,7 @@ public class DraculaController : MonoBehaviour
     void OnCollisionEnter(Collision collision)
     {
         // Check if the player is landing on the ground (adjust the tag as needed)
-        if (collision.gameObject.CompareTag("Ground"))
+        if (collision.gameObject.CompareTag("Ground") && !isCrouched)
         {
             // Play landing sound when the player hits the ground
             SoundFXManager.instance.PlaySoundFXClip(jumpSoundClip, transform.position, 0.6f);
@@ -246,12 +250,14 @@ public class DraculaController : MonoBehaviour
             isBeingDamaged = false;
             isBeingHealed = true;
             InvokeRepeating("RegenHealth", 0f, 1f);
+            SoundFXManager.instance.PlayLoopingSound(regenAudioClip, regenAudioSource, 1f);
         }
         // Stop regen if max health is reached or taking damage
         else if (currentHealth == maxHealth || isBeingDamaged)
         {
             isBeingHealed = false;
             CancelInvoke("RegenHealth");
+            SoundFXManager.instance.StopLoopingSound(regenAudioSource);
         }
     }
 

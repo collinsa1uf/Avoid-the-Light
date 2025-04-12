@@ -17,6 +17,9 @@ public class DoorScript : MonoBehaviour
     private Quaternion openRotation;
     private bool isPlayerNearby = false;
 
+    // ==== Audio ====
+    public AudioClip creakAudioClip;
+
     private void Start()
     {
         closedRotation = doorHinge.rotation;
@@ -66,6 +69,8 @@ public class DoorScript : MonoBehaviour
             doorHinge.rotation = Quaternion.Lerp(closedRotation, openRotation, time);
             yield return null;
         }
+
+        SoundFXManager.instance.PlaySoundFXClip(creakAudioClip, transform.position, 0.6f);
     }
 
     IEnumerator ShowOpenedMessage()
