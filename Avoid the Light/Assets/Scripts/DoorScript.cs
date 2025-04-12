@@ -54,6 +54,9 @@ public class DoorScript : MonoBehaviour
 
     IEnumerator OpenDoor()
     {
+        SoundFXManager.instance.PlaySoundFXClip(creakAudioClip, 0.6f);
+        SoundFXManager.instance.PlaySoundFXClip(doorOpenClip, 0.6f);
+
         isOpen = true;
         GrabKey.hasKey = false; // Key is used.
         keyInHand.gameObject.SetActive(false);
@@ -71,8 +74,6 @@ public class DoorScript : MonoBehaviour
             yield return null;
         }
 
-        SoundFXManager.instance.PlaySoundFXClip(creakAudioClip, 0.6f);
-        SoundFXManager.instance.PlaySoundFXClip(doorOpenClip, 0.6f);
     }
 
     IEnumerator ShowOpenedMessage()
