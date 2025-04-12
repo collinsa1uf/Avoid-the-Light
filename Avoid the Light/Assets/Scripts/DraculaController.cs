@@ -51,6 +51,10 @@ public class DraculaController : MonoBehaviour
     public AudioClip walkSoundClip;
     private bool isMoving = false;
 
+    public AudioClip jumpSoundClip;
+
+
+
 
 
     // Start is called before the first frame update
@@ -113,7 +117,7 @@ public class DraculaController : MonoBehaviour
         if (isCurrentlyMoving && !isMoving)
         {
             isMoving = true;
-            SoundFXManager.instance.PlayLoopingSound(walkSoundClip, walkAudioSource, 0.6f);
+            SoundFXManager.instance.PlayLoopingSound(walkSoundClip, walkAudioSource, 0.4f);
         }
         else if (!isCurrentlyMoving && isMoving)
         {
@@ -137,6 +141,18 @@ public class DraculaController : MonoBehaviour
             jumpCount++;
         }
     }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        // Check if the player is landing on the ground (adjust the tag as needed)
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            // Play landing sound when the player hits the ground
+            SoundFXManager.instance.PlaySoundFXClip(jumpSoundClip, transform.position, 0.8f);
+            jumpCount = 0; // Reset jump count to allow the next jump
+        }
+    }
+
 
     void Crouch()
     {

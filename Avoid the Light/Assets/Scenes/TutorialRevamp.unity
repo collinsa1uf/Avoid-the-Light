@@ -1000,10 +1000,12 @@ MonoBehaviour:
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 8
+  damageNum: 10
+  regenNum: 1
   healthBar: {fileID: 839484741}
   DamageIndicator: {fileID: 0}
-  damageSoundClip: {fileID: 0}
   walkSoundClip: {fileID: 8300000, guid: a4670e5ab28574a449f99e99235ae113, type: 3}
+  jumpSoundClip: {fileID: 8300000, guid: 6b6750de0673a23458d2fd4afb4274cb, type: 3}
 --- !u!54 &101236218
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -25170,7 +25172,7 @@ GameObject:
   - component: {fileID: 1824085321}
   m_Layer: 0
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30114,7 +30116,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43ae99d2c05f3594588f6d7e49e86d04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundFXObject: {fileID: 7375173672231844435, guid: 6efab6b5d388061479911304ee6ba30f, type: 3}
 --- !u!4 &2140225698
 Transform:
   m_ObjectHideFlags: 0
