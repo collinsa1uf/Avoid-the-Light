@@ -51,11 +51,13 @@ public class DraculaController : MonoBehaviour
     private AudioSource breathAudioSource;
     private AudioSource regenAudioSource;
     private AudioSource heartbeatAudioSource;
+    private AudioSource burningAudioSource;
 
     public AudioClip walkSoundClip;
     public AudioClip breathingAudioClip;
     public AudioClip regenAudioClip;
     public AudioClip heartbeatAudioClip;
+    public AudioClip burningAudioClip;
 
     private bool isMoving = false;
 
@@ -84,6 +86,7 @@ public class DraculaController : MonoBehaviour
         breathAudioSource = gameObject.AddComponent<AudioSource>();
         regenAudioSource = gameObject.AddComponent<AudioSource>();
         heartbeatAudioSource = gameObject.AddComponent<AudioSource>();
+        burningAudioSource = gameObject.AddComponent<AudioSource>();
 
     }
 
@@ -229,6 +232,7 @@ public class DraculaController : MonoBehaviour
             InvokeRepeating("DamageHealth", 0f, 1f);
             StartCoroutine(FadeInDamageIndicator());
             SoundFXManager.instance.PlayLoopingSound(heartbeatAudioClip, heartbeatAudioSource, 1f);
+            SoundFXManager.instance.PlayLoopingSound(burningAudioClip, burningAudioSource, 0.2f);
         }
         // Stop damaging player if not in light or health is 0
         else if ((!isInLight && isBeingDamaged) || currentHealth <= 0)
@@ -236,6 +240,7 @@ public class DraculaController : MonoBehaviour
             CancelInvoke("DamageHealth");
             StartCoroutine(FadeOutDamageIndicator());
             SoundFXManager.instance.StopLoopingSound(heartbeatAudioSource);
+            SoundFXManager.instance.StopLoopingSound(burningAudioSource);
         }
     }
 
