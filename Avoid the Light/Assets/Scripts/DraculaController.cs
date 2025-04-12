@@ -161,7 +161,7 @@ public class DraculaController : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground") && !isCrouched)
         {
             // Play landing sound when the player hits the ground
-            SoundFXManager.instance.PlaySoundFXClip(jumpSoundClip, transform.position, 0.6f);
+            SoundFXManager.instance.PlaySoundFXClip(jumpSoundClip, 0.6f);
             jumpCount = 0; // Reset jump count to allow the next jump
         }
     }

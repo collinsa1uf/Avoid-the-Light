@@ -15,15 +15,15 @@ public class SoundFXManager : MonoBehaviour
         else
         {
             instance = this;
-            DontDestroyOnLoad(gameObject); // Optional: persist across scenes
+            DontDestroyOnLoad(gameObject);
         }
 
         audioSource = gameObject.AddComponent<AudioSource>();
     }
 
-    public void PlaySoundFXClip(AudioClip clip, Vector3 position, float volume = 1f)
+    public void PlaySoundFXClip(AudioClip clip, float volume = 1f)
     {
-        AudioSource.PlayClipAtPoint(clip, position, volume);
+        audioSource.PlayOneShot(clip, volume);
     }
 
     public void PlayLoopingSound(AudioClip clip, AudioSource source, float volume = 1f)

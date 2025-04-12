@@ -19,6 +19,7 @@ public class DoorScript : MonoBehaviour
 
     // ==== Audio ====
     public AudioClip creakAudioClip;
+    public AudioClip doorOpenClip;
 
     private void Start()
     {
@@ -70,7 +71,8 @@ public class DoorScript : MonoBehaviour
             yield return null;
         }
 
-        SoundFXManager.instance.PlaySoundFXClip(creakAudioClip, transform.position, 0.6f);
+        SoundFXManager.instance.PlaySoundFXClip(creakAudioClip, 0.6f);
+        SoundFXManager.instance.PlaySoundFXClip(doorOpenClip, 0.6f);
     }
 
     IEnumerator ShowOpenedMessage()
