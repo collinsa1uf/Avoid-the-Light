@@ -48,7 +48,10 @@ public class DraculaController : MonoBehaviour
 
     //==== Sound Effects ====
     private AudioSource walkAudioSource;
+    private AudioSource breathAudioSource;
+
     public AudioClip walkSoundClip;
+    public AudioClip breathingAudioClip;
     private bool isMoving = false;
 
     public AudioClip jumpSoundClip;
@@ -73,6 +76,7 @@ public class DraculaController : MonoBehaviour
         isInLight = false;
 
         walkAudioSource = gameObject.AddComponent<AudioSource>();
+        breathAudioSource = gameObject.AddComponent<AudioSource>();
 
     }
 
@@ -117,12 +121,14 @@ public class DraculaController : MonoBehaviour
         if (isCurrentlyMoving && !isMoving)
         {
             isMoving = true;
-            SoundFXManager.instance.PlayLoopingSound(walkSoundClip, walkAudioSource, 0.4f);
+            SoundFXManager.instance.PlayLoopingSound(walkSoundClip, walkAudioSource, 0.1f);
+            SoundFXManager.instance.PlayLoopingSound(breathingAudioClip, breathAudioSource, 1f);
         }
         else if (!isCurrentlyMoving && isMoving)
         {
             isMoving = false;
             SoundFXManager.instance.StopLoopingSound(walkAudioSource);
+            SoundFXManager.instance.StopLoopingSound(breathAudioSource);
         }
     }
 
@@ -148,7 +154,7 @@ public class DraculaController : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             // Play landing sound when the player hits the ground
-            SoundFXManager.instance.PlaySoundFXClip(jumpSoundClip, transform.position, 0.8f);
+            SoundFXManager.instance.PlaySoundFXClip(jumpSoundClip, transform.position, 0.6f);
             jumpCount = 0; // Reset jump count to allow the next jump
         }
     }
