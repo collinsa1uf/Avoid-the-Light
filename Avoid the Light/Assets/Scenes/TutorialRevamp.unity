@@ -1264,7 +1264,7 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.3
-  m_Height: 1.5
+  m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &102875293 stripped
@@ -10041,6 +10041,28 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 33c3540eb49f5644c8e53f4b31410ce2, type: 3}
   m_PrefabInstance: {fileID: 1883868568}
   m_PrefabAsset: {fileID: 0}
+--- !u!64 &715099347
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 715099343}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4068373912626513877, guid: 33c3540eb49f5644c8e53f4b31410ce2, type: 3}
 --- !u!1 &731760965
 GameObject:
   m_ObjectHideFlags: 0
@@ -27471,7 +27493,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 33c3540eb49f5644c8e53f4b31410ce2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 715099347}
   m_SourcePrefab: {fileID: 100100000, guid: 33c3540eb49f5644c8e53f4b31410ce2, type: 3}
 --- !u!1 &1897860763
 GameObject:
@@ -27809,8 +27834,8 @@ MonoBehaviour:
   interactionIndicator: {fileID: 1069383466}
   openAngle: 90
   openSpeed: 2
-  creakAudioClip: {fileID: 0}
-  doorOpenClip: {fileID: 0}
+  creakAudioClip: {fileID: 8300000, guid: 57ad83faed128ec4d9099aea43c52ba2, type: 3}
+  doorOpenClip: {fileID: 8300000, guid: fbc4cd205175ad842b79e1416ff5003c, type: 3}
 --- !u!65 &1917132548
 BoxCollider:
   m_ObjectHideFlags: 0
