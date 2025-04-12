@@ -47,9 +47,11 @@ public class DraculaController : MonoBehaviour
     public Image DamageIndicator;
 
     //==== Sound Effects ====
-    [SerializeField] private AudioClip damageSoundClip;
-    [SerializeField] private AudioClip walkSoundClip;
-    
+    private AudioSource walkAudioSource;
+    public AudioClip walkSoundClip;
+    private bool isMoving = false;
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -65,6 +67,9 @@ public class DraculaController : MonoBehaviour
         gameOverManager = FindFirstObjectByType<GameOverMenu>();
 
         isInLight = false;
+
+        walkAudioSource = gameObject.AddComponent<AudioSource>();
+
     }
 
     // Update is called once per frame
@@ -90,47 +95,33 @@ public class DraculaController : MonoBehaviour
     void MovePlayer()
     {
         Vector3 direction = new Vector3(0, 0, 0);
-        float y = rb.linearVelocity.y;  // Save the y velocity to maintain gravity effect
+        float y = rb.linearVelocity.y;
 
-        if (Input.GetKey(KeyCode.W))
-        {
-            direction += Camera.main.transform.forward;
-            //SoundFXManager.instance.PlaySoundFXClip(walkSoundClip, transform, 1f);
-        }
-        if (Input.GetKey(KeyCode.S))
-        {
-            direction -= Camera.main.transform.forward;
-            //SoundFXManager.instance.PlaySoundFXClip(walkSoundClip, transform, 1f);
-        }
-        if (Input.GetKey(KeyCode.A))
-        {
-            direction -= Camera.main.transform.right;
-            //SoundFXManager.instance.PlaySoundFXClip(walkSoundClip, transform, 1f);
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
-            direction += Camera.main.transform.right;
-            //SoundFXManager.instance.PlaySoundFXClip(walkSoundClip, transform, 1f);
-        }
+        if (Input.GetKey(KeyCode.W)) direction += Camera.main.transform.forward;
+        if (Input.GetKey(KeyCode.S)) direction -= Camera.main.transform.forward;
+        if (Input.GetKey(KeyCode.A)) direction -= Camera.main.transform.right;
+        if (Input.GetKey(KeyCode.D)) direction += Camera.main.transform.right;
 
-        // Sprint
-        float movementSpeed = 0f;
-        if (Input.GetKey(KeyCode.LeftShift))
-        {
-            movementSpeed = sprintSpeed;
-        }
-        else
-        {
-            movementSpeed = walkSpeed;
-        }
-
-        // Normalize direction to prevent faster diagonal movement
+        float movementSpeed = Input.GetKey(KeyCode.LeftShift) ? sprintSpeed : walkSpeed;
         Vector3 velocity = direction.normalized * movementSpeed;
-        velocity.y = y;  // Maintain original y velocity for gravity
-
-        // Apply the velocity to the player
+        velocity.y = y;
         rb.linearVelocity = velocity;
+
+        // Handle walking sound
+        bool isCurrentlyMoving = direction != Vector3.zero;
+
+        if (isCurrentlyMoving && !isMoving)
+        {
+            isMoving = true;
+            SoundFXManager.instance.PlayLoopingSound(walkSoundClip, walkAudioSource, 0.6f);
+        }
+        else if (!isCurrentlyMoving && isMoving)
+        {
+            isMoving = false;
+            SoundFXManager.instance.StopLoopingSound(walkAudioSource);
+        }
     }
+
 
     void Jump()
     {
