@@ -42,9 +42,9 @@ public class DraculaController : MonoBehaviour
     private float currentHealth = 100f;
     private float damageNum = 10f;
     private float regenNum = 1f;
-    private bool isBeingDamaged = false;
+    [SerializeField] private bool isBeingDamaged = false;
     private bool isBeingHealed = false;
-    public static bool isInLight;
+    [SerializeField] public static bool isInLight;
     public HealthBar healthBar;
 
     //==== UI Elements ====
@@ -218,6 +218,23 @@ public class DraculaController : MonoBehaviour
             currentHealth = 0;
             gameOverManager.GameOver();
         }
+    }
+
+    public void ResetPlayer()
+    {
+        currentHealth = maxHealth;
+        isBeingDamaged = false;
+        isInLight = false;
+        CancelInvoke("DamageHealth");
+        healthBar.SetHealth(currentHealth);
+        DamageIndicator.enabled = false;
+    }
+
+    public void Die()
+    {
+        currentHealth = 0;
+        healthBar.SetHealth(currentHealth);
+        gameOverManager.GameOver();
     }
 
     void DamagePlayer()
