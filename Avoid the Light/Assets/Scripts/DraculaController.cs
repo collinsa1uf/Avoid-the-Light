@@ -16,6 +16,10 @@ public class DraculaController : MonoBehaviour
 
     //====Added variable for tracking # of jumps====
     public int jumpCount = 0;
+    public Transform groundCheck;
+    public float groundDistance = .2f;
+    public LayerMask groundMask;
+    private bool isGrounded;
 
     //===Crouching variables===
     private bool isCrouched = false;
@@ -73,7 +77,23 @@ public class DraculaController : MonoBehaviour
         if (!PauseMenu.isPaused)
         {
             MovePlayer();
-            Jump();
+
+
+            // New Jump functionality
+            isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+
+            if(isGrounded)
+            {
+                jumpCount = 0;
+            }
+
+            if (Input.GetKeyDown(KeyCode.Space) && jumpCount < 1)
+            {
+                rb.AddForce(Vector3.up * jumpStrength, ForceMode.Impulse);
+                jumpCount++;
+            }
+
+            //Jump();
             Rotate();
 
             // ==== Crouch Behavior ====
