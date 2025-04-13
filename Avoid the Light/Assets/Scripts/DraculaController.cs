@@ -36,15 +36,18 @@ public class DraculaController : MonoBehaviour
     // ===== Health variables =====
     private float maxHealth = 100f;
     private float currentHealth = 100f;
-    public float damageNum = 20f;
-    public float regenNum = 1f;
+    public static float damageNum = 10f;
+    private float regenNum = 1f;
     private bool isBeingDamaged = false;
     private bool isBeingHealed = false;
     public static bool isInLight;
+    public static bool isNearLight;
+    private bool nearLightIndicatorShowing = false;
     public HealthBar healthBar;
 
     //==== UI Elements ====
     public Image DamageIndicator;
+    public Image NearLightIndicator;
 
     //==== Sound Effects ====
     private AudioSource walkAudioSource;
@@ -74,8 +77,12 @@ public class DraculaController : MonoBehaviour
 
         rb = GetComponent<Rigidbody>();
         capsuleCollider = GetComponent<CapsuleCollider>();
+
         DamageIndicator = GameObject.Find("DamageIndicator").GetComponent<Image>();
         DamageIndicator.enabled = false;
+        NearLightIndicator = GameObject.Find("NearLightIndicator").GetComponent<Image>();
+        NearLightIndicator.enabled = false;
+
         currentRotation = new Vector3(-90, 0, 0);
 
         gameOverManager = FindFirstObjectByType<GameOverMenu>();
@@ -98,6 +105,8 @@ public class DraculaController : MonoBehaviour
             MovePlayer();
             Jump();
             Rotate();
+
+            showNearLightIndicator();
 
             // ==== Crouch Behavior ====
             Crouch();
@@ -210,7 +219,33 @@ public class DraculaController : MonoBehaviour
     }
 
 
+    void showNearLightIndicator()
+    {
+        // Shows indicator that player is near light
+        if (isNearLight && !nearLightIndicatorShowing)
+        {
+            StartCoroutine(FadeInNearLightIndicator());
+            SoundFXManager.instance.PlayLoopingSound(heartbeatAudioClip, heartbeatAudioSource, 1f);
+
+            nearLightIndicatorShowing = true;
+        }
+        // Gets rid of indicator showing that player is near light
+        else if (!isNearLight && nearLightIndicatorShowing)
+        {
+            StartCoroutine(FadeOutNearLightIndicator());
+            SoundFXManager.instance.StopLoopingSound(heartbeatAudioSource);
+
+            nearLightIndicatorShowing = false;
+        }
+    }
+
+
     // ===== Health functions =====
+    public static void setDamageNum(float damage)
+    {
+        damageNum = damage;
+    }
+
     void DamageHealth()
     {
         currentHealth -= damageNum;
@@ -306,5 +341,40 @@ public class DraculaController : MonoBehaviour
         DamageIndicator.enabled = false; // Fading it back to transparent
     }
 
+    IEnumerator FadeInNearLightIndicator()
+    {
+        NearLightIndicator.enabled = true; // Making it visible
+        Color color = NearLightIndicator.color;
+        float duration = 0.5f; // Time to fully fade in
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            color.a = Mathf.Lerp(0f, 1f, elapsed / duration);
+            NearLightIndicator.color = color;
+            yield return null;
+        }
+        color.a = 1f;
+        NearLightIndicator.color = color;
+    }
+
+    IEnumerator FadeOutNearLightIndicator()
+    {
+        Color color = NearLightIndicator.color;
+        float duration = 1.5f;
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            color.a = Mathf.Lerp(1f, 0f, elapsed / duration);
+            NearLightIndicator.color = color;
+            yield return null;
+        }
+        color.a = 0f;
+        NearLightIndicator.color = color;
+        NearLightIndicator.enabled = false; // Fading it back to transparent
+    }
 }
 

@@ -9,6 +9,7 @@ public class LightCollisionManager : MonoBehaviour
     private static GameObject spotlightHittingCurtain = null;
     private static bool hitPlayer = false;
     private bool isVisible = false;
+    private bool isNearLight = false;
 
     private void Start()
     {
@@ -22,14 +23,22 @@ public class LightCollisionManager : MonoBehaviour
         //CheckIfHittingPlayer();
         CheckIfVisible();
 
-        Debug.Log("1. " + hitPlayer + "  2. " + isVisible);
+        //Debug.Log("1. " + hitPlayer + "  2. " + isVisible);
         if (hitPlayer && isVisible)
         {
+            DraculaController.setDamageNum(parent.gameObject.GetComponent<Raycast>().GetDamage());
+            DraculaController.isNearLight = true;
             DraculaController.isInLight = true;
+        }
+        else if (hitPlayer && !isVisible)
+        {
+            DraculaController.isInLight = false;
+            DraculaController.isNearLight = true;
         }
         else
         {
             DraculaController.isInLight = false;
+            DraculaController.isNearLight = false;
         }
 
         CheckIfHittingCurtain();
@@ -45,7 +54,7 @@ public class LightCollisionManager : MonoBehaviour
     {
         if (spotlightHittingPlayer != null)
         {
-            hitPlayer = spotlightHittingPlayer.GetComponent<LightCollisionBoxcast>().GetHitPlayer();
+            hitPlayer = spotlightHittingPlayer.GetComponent<Boxcast>().GetHitPlayer();
         }
     }*/
 
@@ -72,7 +81,7 @@ public class LightCollisionManager : MonoBehaviour
             LayerMask allLayers = Physics.AllLayers;
             if (Physics.Linecast(player.transform.position, parent.GetComponent<BoxCollider>().transform.position, out hit, allLayers, QueryTriggerInteraction.Ignore)) 
             {
-                Debug.Log(hit.collider.gameObject.name);
+                //Debug.Log(hit.collider.gameObject.name);
                 if (hit.collider.gameObject.tag == "Light")
                 {
                     isVisible = true;
