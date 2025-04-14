@@ -16,6 +16,10 @@ public class DraculaController : MonoBehaviour
 
     //====Added variable for tracking # of jumps====
     public int jumpCount = 0;
+    public Transform groundCheck;
+    public float groundDistance = .2f;
+    public LayerMask groundMask;
+    private bool isGrounded;
 
     //===Crouching variables===
     private bool isCrouched = false;
@@ -80,6 +84,7 @@ public class DraculaController : MonoBehaviour
 
         DamageIndicator = GameObject.Find("DamageIndicator").GetComponent<Image>();
         DamageIndicator.enabled = false;
+
         NearLightIndicator = GameObject.Find("NearLightIndicator").GetComponent<Image>();
         NearLightIndicator.enabled = false;
 
@@ -103,7 +108,23 @@ public class DraculaController : MonoBehaviour
         if (!PauseMenu.isPaused)
         {
             MovePlayer();
-            Jump();
+
+
+            // New Jump functionality
+            isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+
+            if(isGrounded)
+            {
+                jumpCount = 0;
+            }
+
+            if (Input.GetKeyDown(KeyCode.Space) && jumpCount < 1)
+            {
+                rb.AddForce(Vector3.up * jumpStrength, ForceMode.Impulse);
+                jumpCount++;
+            }
+
+            //Jump();
             Rotate();
 
             showNearLightIndicator();
@@ -129,7 +150,17 @@ public class DraculaController : MonoBehaviour
         if (Input.GetKey(KeyCode.A)) direction -= Camera.main.transform.right;
         if (Input.GetKey(KeyCode.D)) direction += Camera.main.transform.right;
 
-        float movementSpeed = Input.GetKey(KeyCode.LeftShift) ? sprintSpeed : walkSpeed;
+        // Sprint
+        float movementSpeed = 0f;
+        if (Input.GetKey(KeyCode.LeftShift) && !isCrouched)
+        {
+            movementSpeed = sprintSpeed;
+        }
+        else
+        {
+            movementSpeed = walkSpeed;
+        }
+
         Vector3 velocity = direction.normalized * movementSpeed;
         velocity.y = y;
         rb.linearVelocity = velocity;
