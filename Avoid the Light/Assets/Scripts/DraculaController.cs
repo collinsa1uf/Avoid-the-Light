@@ -40,20 +40,39 @@ public class DraculaController : MonoBehaviour
     // ===== Health variables =====
     private float maxHealth = 100f;
     private float currentHealth = 100f;
-    private float damageNum = 10f;
+    public static float damageNum = 10f;
     private float regenNum = 1f;
     private bool isBeingDamaged = false;
     private bool isBeingHealed = false;
     public static bool isInLight;
+    public static bool isNearLight;
+    private bool nearLightIndicatorShowing = false;
     public HealthBar healthBar;
 
     //==== UI Elements ====
     public Image DamageIndicator;
+    public Image NearLightIndicator;
 
     //==== Sound Effects ====
-    [SerializeField] private AudioClip damageSoundClip;
-    [SerializeField] private AudioClip walkSoundClip;
-    
+    private AudioSource walkAudioSource;
+    private AudioSource breathAudioSource;
+    private AudioSource regenAudioSource;
+    private AudioSource heartbeatAudioSource;
+    private AudioSource burningAudioSource;
+
+    public AudioClip walkSoundClip;
+    public AudioClip breathingAudioClip;
+    public AudioClip regenAudioClip;
+    public AudioClip heartbeatAudioClip;
+    public AudioClip burningAudioClip;
+
+    private bool isMoving = false;
+
+    public AudioClip jumpSoundClip;
+
+
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -62,13 +81,25 @@ public class DraculaController : MonoBehaviour
 
         rb = GetComponent<Rigidbody>();
         capsuleCollider = GetComponent<CapsuleCollider>();
+
         DamageIndicator = GameObject.Find("DamageIndicator").GetComponent<Image>();
         DamageIndicator.enabled = false;
-        currentRotation = new Vector3(-180, 0, 0);
+
+        NearLightIndicator = GameObject.Find("NearLightIndicator").GetComponent<Image>();
+        NearLightIndicator.enabled = false;
+
+        currentRotation = new Vector3(-90, 0, 0);
 
         gameOverManager = FindFirstObjectByType<GameOverMenu>();
 
         isInLight = false;
+
+        walkAudioSource = gameObject.AddComponent<AudioSource>();
+        breathAudioSource = gameObject.AddComponent<AudioSource>();
+        regenAudioSource = gameObject.AddComponent<AudioSource>();
+        heartbeatAudioSource = gameObject.AddComponent<AudioSource>();
+        burningAudioSource = gameObject.AddComponent<AudioSource>();
+
     }
 
     // Update is called once per frame
@@ -96,6 +127,8 @@ public class DraculaController : MonoBehaviour
             //Jump();
             Rotate();
 
+            showNearLightIndicator();
+
             // ==== Crouch Behavior ====
             Crouch();
 
@@ -110,28 +143,12 @@ public class DraculaController : MonoBehaviour
     void MovePlayer()
     {
         Vector3 direction = new Vector3(0, 0, 0);
-        float y = rb.linearVelocity.y;  // Save the y velocity to maintain gravity effect
+        float y = rb.linearVelocity.y;
 
-        if (Input.GetKey(KeyCode.W))
-        {
-            direction += Camera.main.transform.forward;
-            //SoundFXManager.instance.PlaySoundFXClip(walkSoundClip, transform, 1f);
-        }
-        if (Input.GetKey(KeyCode.S))
-        {
-            direction -= Camera.main.transform.forward;
-            //SoundFXManager.instance.PlaySoundFXClip(walkSoundClip, transform, 1f);
-        }
-        if (Input.GetKey(KeyCode.A))
-        {
-            direction -= Camera.main.transform.right;
-            //SoundFXManager.instance.PlaySoundFXClip(walkSoundClip, transform, 1f);
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
-            direction += Camera.main.transform.right;
-            //SoundFXManager.instance.PlaySoundFXClip(walkSoundClip, transform, 1f);
-        }
+        if (Input.GetKey(KeyCode.W)) direction += Camera.main.transform.forward;
+        if (Input.GetKey(KeyCode.S)) direction -= Camera.main.transform.forward;
+        if (Input.GetKey(KeyCode.A)) direction -= Camera.main.transform.right;
+        if (Input.GetKey(KeyCode.D)) direction += Camera.main.transform.right;
 
         // Sprint
         float movementSpeed = 0f;
@@ -144,13 +161,27 @@ public class DraculaController : MonoBehaviour
             movementSpeed = walkSpeed;
         }
 
-        // Normalize direction to prevent faster diagonal movement
         Vector3 velocity = direction.normalized * movementSpeed;
-        velocity.y = y;  // Maintain original y velocity for gravity
-
-        // Apply the velocity to the player
+        velocity.y = y;
         rb.linearVelocity = velocity;
+
+        // Handle walking sound
+        bool isCurrentlyMoving = direction != Vector3.zero;
+
+        if (isCurrentlyMoving && !isMoving)
+        {
+            isMoving = true;
+            SoundFXManager.instance.PlayLoopingSound(walkSoundClip, walkAudioSource, 0.1f);
+            SoundFXManager.instance.PlayLoopingSound(breathingAudioClip, breathAudioSource, 1f);
+        }
+        else if (!isCurrentlyMoving && isMoving)
+        {
+            isMoving = false;
+            SoundFXManager.instance.StopLoopingSound(walkAudioSource);
+            SoundFXManager.instance.StopLoopingSound(breathAudioSource);
+        }
     }
+
 
     void Jump()
     {
@@ -166,6 +197,18 @@ public class DraculaController : MonoBehaviour
             jumpCount++;
         }
     }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        // Check if the player is landing on the ground (adjust the tag as needed)
+        if (collision.gameObject.CompareTag("Ground") && !isCrouched)
+        {
+            // Play landing sound when the player hits the ground
+            SoundFXManager.instance.PlaySoundFXClip(jumpSoundClip, 0.6f);
+            jumpCount = 0; // Reset jump count to allow the next jump
+        }
+    }
+
 
     void Crouch()
     {
@@ -207,7 +250,33 @@ public class DraculaController : MonoBehaviour
     }
 
 
+    void showNearLightIndicator()
+    {
+        // Shows indicator that player is near light
+        if (isNearLight && !nearLightIndicatorShowing)
+        {
+            StartCoroutine(FadeInNearLightIndicator());
+            SoundFXManager.instance.PlayLoopingSound(heartbeatAudioClip, heartbeatAudioSource, 1f);
+
+            nearLightIndicatorShowing = true;
+        }
+        // Gets rid of indicator showing that player is near light
+        else if (!isNearLight && nearLightIndicatorShowing)
+        {
+            StartCoroutine(FadeOutNearLightIndicator());
+            SoundFXManager.instance.StopLoopingSound(heartbeatAudioSource);
+
+            nearLightIndicatorShowing = false;
+        }
+    }
+
+
     // ===== Health functions =====
+    public static void setDamageNum(float damage)
+    {
+        damageNum = damage;
+    }
+
     void DamageHealth()
     {
         currentHealth -= damageNum;
@@ -228,13 +297,16 @@ public class DraculaController : MonoBehaviour
             isBeingDamaged = true;
             InvokeRepeating("DamageHealth", 0f, 1f);
             StartCoroutine(FadeInDamageIndicator());
-            //SoundFXManager.instance.PlaySoundFXClip(damageSoundClip, transform, 1f);
+            SoundFXManager.instance.PlayLoopingSound(heartbeatAudioClip, heartbeatAudioSource, 1f);
+            SoundFXManager.instance.PlayLoopingSound(burningAudioClip, burningAudioSource, 0.2f);
         }
         // Stop damaging player if not in light or health is 0
         else if ((!isInLight && isBeingDamaged) || currentHealth <= 0)
         {
             CancelInvoke("DamageHealth");
             StartCoroutine(FadeOutDamageIndicator());
+            SoundFXManager.instance.StopLoopingSound(heartbeatAudioSource);
+            SoundFXManager.instance.StopLoopingSound(burningAudioSource);
         }
     }
 
@@ -253,12 +325,14 @@ public class DraculaController : MonoBehaviour
             isBeingDamaged = false;
             isBeingHealed = true;
             InvokeRepeating("RegenHealth", 0f, 1f);
+            SoundFXManager.instance.PlayLoopingSound(regenAudioClip, regenAudioSource, 1f);
         }
         // Stop regen if max health is reached or taking damage
         else if (currentHealth == maxHealth || isBeingDamaged)
         {
             isBeingHealed = false;
             CancelInvoke("RegenHealth");
+            SoundFXManager.instance.StopLoopingSound(regenAudioSource);
         }
     }
 
@@ -298,5 +372,40 @@ public class DraculaController : MonoBehaviour
         DamageIndicator.enabled = false; // Fading it back to transparent
     }
 
+    IEnumerator FadeInNearLightIndicator()
+    {
+        NearLightIndicator.enabled = true; // Making it visible
+        Color color = NearLightIndicator.color;
+        float duration = 0.5f; // Time to fully fade in
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            color.a = Mathf.Lerp(0f, 1f, elapsed / duration);
+            NearLightIndicator.color = color;
+            yield return null;
+        }
+        color.a = 1f;
+        NearLightIndicator.color = color;
+    }
+
+    IEnumerator FadeOutNearLightIndicator()
+    {
+        Color color = NearLightIndicator.color;
+        float duration = 1.5f;
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            color.a = Mathf.Lerp(1f, 0f, elapsed / duration);
+            NearLightIndicator.color = color;
+            yield return null;
+        }
+        color.a = 0f;
+        NearLightIndicator.color = color;
+        NearLightIndicator.enabled = false; // Fading it back to transparent
+    }
 }
 

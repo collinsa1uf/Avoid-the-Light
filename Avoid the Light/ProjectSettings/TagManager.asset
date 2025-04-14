@@ -7,6 +7,7 @@ TagManager:
   - Light
   - FirstTrigger
   - SecondTrigger
+  - Ground
   layers:
   - Default
   - TransparentFX
@@ -16,6 +17,7 @@ TagManager:
   - UI
   - Curtain
   - Ground
+  - Light Particle Collider
   - 
   - 
   - 

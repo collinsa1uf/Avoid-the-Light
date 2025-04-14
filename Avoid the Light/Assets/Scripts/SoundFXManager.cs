@@ -1,37 +1,44 @@
-// Source: Sasquatch B Studios on Youtube (How to Add Sound Effects the RIGHT way)
-
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SoundFXManager : MonoBehaviour
 {
     public static SoundFXManager instance;
 
-    [SerializeField] private AudioSource soundFXObject;
-    
-    public void Awake()
+    private AudioSource audioSource;
+
+    void Awake()
     {
-        if(instance == null)
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
         {
             instance = this;
+            DontDestroyOnLoad(gameObject);
         }
+
+        audioSource = gameObject.AddComponent<AudioSource>();
     }
 
-    public void PlaySoundFXClip(AudioClip audioClip, Transform spawnTransform, float volume)
+    public void PlaySoundFXClip(AudioClip clip, float volume = 1f)
     {
-        //spawn in gameObject
-        AudioSource audioSource = Instantiate(soundFXObject, spawnTransform.position, Quaternion.identity);
-        //Assign the audioClip
-        audioSource.clip = audioClip;
-        //assign volume
-        audioSource.volume = volume;
-        //play sound
-        audioSource.Play();
-        //get length of sound FX clip
-        float clipLength = audioSource.clip.length;
-        //destroy the clip after it is done playing
-        Destroy(audioSource.gameObject, clipLength);
+        audioSource.PlayOneShot(clip, volume);
     }
-    
+
+    public void PlayLoopingSound(AudioClip clip, AudioSource source, float volume = 1f)
+    {
+        source.clip = clip;
+        source.volume = volume;
+        source.loop = true;
+        source.Play();
+    }
+
+    public void StopLoopingSound(AudioSource source)
+    {
+        if (source.isPlaying)
+        {
+            source.Stop();
+        }
+    }
 }
