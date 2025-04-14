@@ -6447,14 +6447,14 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   healthBar: {fileID: 839484741}
-  DamageIndicator: {fileID: 0}
+  DamageIndicator: {fileID: 1945850493}
   NearLightIndicator: {fileID: 0}
   walkSoundClip: {fileID: 8300000, guid: a4670e5ab28574a449f99e99235ae113, type: 3}
-  breathingAudioClip: {fileID: 0}
-  regenAudioClip: {fileID: 0}
-  heartbeatAudioClip: {fileID: 0}
-  burningAudioClip: {fileID: 0}
-  jumpSoundClip: {fileID: 0}
+  breathingAudioClip: {fileID: 8300000, guid: 9a73888b74b9c6a4ba51029944821693, type: 3}
+  regenAudioClip: {fileID: 8300000, guid: 96e91aff5d2d00643be70a1dc612b554, type: 3}
+  heartbeatAudioClip: {fileID: 8300000, guid: 9d8d671d2a810614fbca800fb1fc5025, type: 3}
+  burningAudioClip: {fileID: 8300000, guid: d9a4a3e7f2767fa46a575931d322d22e, type: 3}
+  jumpSoundClip: {fileID: 8300000, guid: 4830ebac54624b649975d61395a8897a, type: 3}
 --- !u!54 &101236218
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -94068,8 +94068,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.5790043, y: 2.009355, z: 1.0057857}
-  m_Center: {x: -0.9483814, y: 0.50467765, z: -0.37418473}
+  m_Size: {x: 0.62078726, y: 2.529797, z: 1.4488208}
+  m_Center: {x: -0.24920052, y: 0.24445653, z: -0.44218123}
 --- !u!4 &597793306702521675
 Transform:
   m_ObjectHideFlags: 0
@@ -94305,8 +94305,8 @@ MonoBehaviour:
   openAngle: -90
   openSpeed: 2
   isLocked: 0
-  creakAudioClip: {fileID: 0}
-  doorOpenClip: {fileID: 0}
+  creakAudioClip: {fileID: 8300000, guid: 57ad83faed128ec4d9099aea43c52ba2, type: 3}
+  doorOpenClip: {fileID: 8300000, guid: fbc4cd205175ad842b79e1416ff5003c, type: 3}
 --- !u!1 &1579943216549237453
 GameObject:
   m_ObjectHideFlags: 0
@@ -94637,8 +94637,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.5790043, y: 2.009355, z: 0.7848644}
-  m_Center: {x: -0.9483805, y: 0.50467765, z: -0.4846449}
+  m_Size: {x: 0.68861365, y: 2.528682, z: 1.3968195}
+  m_Center: {x: -0.22412865, y: 0.24501407, z: -0.50796723}
 --- !u!1 &3314283288032133968
 GameObject:
   m_ObjectHideFlags: 0
@@ -94901,8 +94901,8 @@ MonoBehaviour:
   openAngle: -90
   openSpeed: 2
   isLocked: 1
-  creakAudioClip: {fileID: 0}
-  doorOpenClip: {fileID: 0}
+  creakAudioClip: {fileID: 8300000, guid: 57ad83faed128ec4d9099aea43c52ba2, type: 3}
+  doorOpenClip: {fileID: 8300000, guid: fbc4cd205175ad842b79e1416ff5003c, type: 3}
 --- !u!23 &4109994049413204961
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -95075,8 +95075,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.5790043, y: 2.009355, z: 0.7848644}
-  m_Center: {x: -0.9483805, y: 0.50467765, z: -0.4846449}
+  m_Size: {x: 0.45825005, y: 2.6562188, z: 1.3462753}
+  m_Center: {x: -0.20403004, y: 0.18124592, z: -0.5134697}
 --- !u!4 &4953739430324747756
 Transform:
   m_ObjectHideFlags: 0
@@ -95363,8 +95363,8 @@ MonoBehaviour:
   openAngle: -90
   openSpeed: 2
   isLocked: 1
-  creakAudioClip: {fileID: 0}
-  doorOpenClip: {fileID: 0}
+  creakAudioClip: {fileID: 8300000, guid: 57ad83faed128ec4d9099aea43c52ba2, type: 3}
+  doorOpenClip: {fileID: 8300000, guid: fbc4cd205175ad842b79e1416ff5003c, type: 3}
 --- !u!4 &5805996104853889821
 Transform:
   m_ObjectHideFlags: 0
@@ -95800,9 +95800,9 @@ MonoBehaviour:
   interactionIndicator: {fileID: 1069383466}
   openAngle: -90
   openSpeed: 2
-  isLocked: 1
-  creakAudioClip: {fileID: 0}
-  doorOpenClip: {fileID: 0}
+  isLocked: 0
+  creakAudioClip: {fileID: 8300000, guid: 57ad83faed128ec4d9099aea43c52ba2, type: 3}
+  doorOpenClip: {fileID: 8300000, guid: fbc4cd205175ad842b79e1416ff5003c, type: 3}
 --- !u!4 &7542894025346524962
 Transform:
   m_ObjectHideFlags: 0
@@ -96062,12 +96062,12 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.5790043, y: 2.009355, z: 0.7848644}
-  m_Center: {x: -0.9483805, y: 0.50467765, z: -0.4846449}
+  m_Size: {x: 0.6432225, y: 2.626346, z: 1.7016644}
+  m_Center: {x: -0.28579086, y: 0.19618201, z: -0.46280855}
 --- !u!64 &8615110503162748954
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -96276,6 +96276,7 @@ SceneRoots:
   - {fileID: 1294658761}
   - {fileID: 279462546}
   - {fileID: 1754896967}
+  - {fileID: 955291100}
   - {fileID: 731760968}
   - {fileID: 1406389577}
   - {fileID: 1824085326}
@@ -96792,4 +96793,3 @@ SceneRoots:
   - {fileID: 23395467}
   - {fileID: 346583667}
   - {fileID: 675696414}
-  - {fileID: 955291100}
