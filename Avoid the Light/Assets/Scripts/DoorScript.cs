@@ -12,6 +12,7 @@ public class DoorScript : MonoBehaviour
     public float openAngle = 90f;
     public float openSpeed = 2f;
 
+    public bool isLocked;
     private bool isOpen = false;
     private Quaternion closedRotation;
     private Quaternion openRotation;
@@ -46,10 +47,12 @@ public class DoorScript : MonoBehaviour
     void TryOpenDoor()
     {
         // Uses public static bool from GrabKey.cs to see if a key is collected.
-        if (GrabKey.hasKey & !isOpen)
+        if (GrabKey.hasKey & !isOpen && isLocked)
             StartCoroutine(OpenDoor());
-        else if (!GrabKey.hasKey)
+        else if (!GrabKey.hasKey && isLocked)
             StartCoroutine(ShowLockedMessage());
+        else if (!isLocked)
+            StartCoroutine(OpenDoor());
     }
 
     IEnumerator OpenDoor()
@@ -58,15 +61,16 @@ public class DoorScript : MonoBehaviour
         SoundFXManager.instance.PlaySoundFXClip(doorOpenClip, 0.6f);
 
         isOpen = true;
-        GrabKey.hasKey = false; // Key is used.
-        keyInHand.gameObject.SetActive(false);
+        if (GrabKey.hasKey)
+        {
+            GrabKey.hasKey = false; // Key is used.
+            keyInHand.gameObject.SetActive(false);
+            StartCoroutine(ShowOpenedMessage());
+        }
 
         interactionIndicator.gameObject.SetActive(false);
 
         float time = 0f;
-
-        StartCoroutine(ShowOpenedMessage());
-
         while (time < 1f)
         {
             time += Time.deltaTime * openSpeed;

@@ -47,5 +47,4 @@ public class GrabKey : MonoBehaviour
             hasKey = true;
         }
     }
-
 }
