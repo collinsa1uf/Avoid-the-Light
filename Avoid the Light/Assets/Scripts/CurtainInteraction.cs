@@ -10,8 +10,6 @@ public class CurtainInteraction : MonoBehaviour
     private bool isPlayerNear = false;
     private bool isCurtainClosed = false;
 
-    public AudioClip curtainAudioClip;
-
     void Start()
     {
         promptText.SetActive(false);
@@ -55,7 +53,6 @@ public class CurtainInteraction : MonoBehaviour
         promptText.SetActive(false);
 
         StartCoroutine(DisableAnimator());
-        SoundFXManager.instance.PlaySoundFXClip(curtainAudioClip, 0.4f);
     }
 
     IEnumerator DisableAnimator()

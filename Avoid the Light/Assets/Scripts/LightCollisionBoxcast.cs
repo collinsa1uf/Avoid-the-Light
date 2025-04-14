@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Boxcast : MonoBehaviour
+public class LightCollisionBoxcast : MonoBehaviour
 {
     RaycastHit[] hit;
     RaycastHit hit2;
@@ -22,11 +22,11 @@ public class Boxcast : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        UseBoxcast();
-        UseRaycast();
+        Boxcast();
+        Raycast();
     }
 
-    void UseBoxcast()
+    void Boxcast()
     {
         lightCollider.size = new Vector3(scaleX, scaleY, scaleZ);
         hit = Physics.BoxCastAll(lightCollider.bounds.center, new Vector3(scaleX, scaleY, scaleZ) * 0.5f, transform.forward, transform.rotation, distance);
@@ -50,8 +50,8 @@ public class Boxcast : MonoBehaviour
             hitPlayer = false;
         }
     }
-    
-    void UseRaycast()
+
+    void Raycast()
     {
         RaycastHit hit2;
         if (Physics.Raycast(lightCollider.transform.position, lightCollider.transform.forward, out hit2))
