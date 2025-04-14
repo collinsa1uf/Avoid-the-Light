@@ -159,6 +159,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   curtainAnimator: {fileID: 86316}
   promptText: {fileID: 965043166}
+  curtainAudioClip: {fileID: 0}
 --- !u!95 &86316
 Animator:
   serializedVersion: 7
@@ -6323,8 +6324,13 @@ MonoBehaviour:
     m_Bits: 8
   healthBar: {fileID: 839484741}
   DamageIndicator: {fileID: 0}
-  damageSoundClip: {fileID: 0}
+  NearLightIndicator: {fileID: 0}
   walkSoundClip: {fileID: 8300000, guid: a4670e5ab28574a449f99e99235ae113, type: 3}
+  breathingAudioClip: {fileID: 0}
+  regenAudioClip: {fileID: 0}
+  heartbeatAudioClip: {fileID: 0}
+  burningAudioClip: {fileID: 0}
+  jumpSoundClip: {fileID: 0}
 --- !u!54 &101236218
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -6429,7 +6435,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 101236216}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 3d5b7d722128b1c4bb69bc78f68832db, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -11561,6 +11567,7 @@ Transform:
   m_Children:
   - {fileID: 1897860766}
   - {fileID: 1652101859}
+  - {fileID: 821239479}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &280574017
@@ -14249,7 +14256,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 454c31c8f56e9f74c8970332fae4e75c, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -36997,6 +37004,52 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 454c31c8f56e9f74c8970332fae4e75c, type: 3}
+--- !u!1 &821239477
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 821239479}
+  - component: {fileID: 821239478}
+  m_Layer: 0
+  m_Name: Game Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &821239478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 821239477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7cabd793e73575d4393757ab123a3e46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RespawnPlace: {x: 0, y: 0, z: 0}
+  Player: {fileID: 101236216}
+--- !u!4 &821239479
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 821239477}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 279462546}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &822768252
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -49412,7 +49465,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 454c31c8f56e9f74c8970332fae4e75c, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -61307,6 +61360,8 @@ MonoBehaviour:
   interactionIndicator: {fileID: 0}
   openAngle: 90
   openSpeed: 2
+  creakAudioClip: {fileID: 0}
+  doorOpenClip: {fileID: 0}
 --- !u!1001 &1410672731
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -71017,6 +71072,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   curtainAnimator: {fileID: 1624244113}
   promptText: {fileID: 965043166}
+  curtainAudioClip: {fileID: 0}
 --- !u!95 &1624244113
 Animator:
   serializedVersion: 7
@@ -73561,6 +73617,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   curtainAnimator: {fileID: 1685351803}
   promptText: {fileID: 965043166}
+  curtainAudioClip: {fileID: 0}
 --- !u!95 &1685351803
 Animator:
   serializedVersion: 7
@@ -81393,6 +81450,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameOverUI: {fileID: 416875820}
+  gameManager: {fileID: 821239478}
+  player: {fileID: 101236216}
 --- !u!114 &1897860768
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -82303,6 +82362,8 @@ MonoBehaviour:
   interactionIndicator: {fileID: 1069383466}
   openAngle: 90
   openSpeed: 2
+  creakAudioClip: {fileID: 0}
+  doorOpenClip: {fileID: 0}
 --- !u!65 &1917132548
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -91439,7 +91500,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43ae99d2c05f3594588f6d7e49e86d04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundFXObject: {fileID: 7375173672231844435, guid: 6efab6b5d388061479911304ee6ba30f, type: 3}
 --- !u!4 &2140225698
 Transform:
   m_ObjectHideFlags: 0
