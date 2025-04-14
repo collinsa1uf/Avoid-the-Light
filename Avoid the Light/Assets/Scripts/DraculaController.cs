@@ -118,7 +118,7 @@ public class DraculaController : MonoBehaviour
                 jumpCount = 0;
             }
 
-            if (Input.GetKeyDown(KeyCode.Space) && jumpCount < 1)
+            if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
             {
                 rb.AddForce(Vector3.up * jumpStrength, ForceMode.Impulse);
                 jumpCount++;
@@ -183,20 +183,20 @@ public class DraculaController : MonoBehaviour
     }
 
 
-    void Jump()
-    {
-        // Make sure jumpCount is reset if player is grounded (rb.velocity.y == 0)
-        if (Mathf.Approximately(rb.linearVelocity.y, 0f))
-        {
-            jumpCount = 0;
-        }
+    //void Jump()
+    //{
+    //    // Make sure jumpCount is reset if player is grounded (rb.velocity.y == 0)
+    //    if (Mathf.Approximately(rb.linearVelocity.y, 0f))
+    //    {
+    //        jumpCount = 0;
+    //    }
 
-        if (Input.GetKeyDown(KeyCode.Space) && jumpCount < 1)  // Double jump logic
-        {
-            rb.AddForce(Vector3.up * jumpStrength, ForceMode.Impulse);
-            jumpCount++;
-        }
-    }
+    //    if (Input.GetKeyDown(KeyCode.Space) && jumpCount < 1)  // Double jump logic
+    //    {
+    //        rb.AddForce(Vector3.up * jumpStrength, ForceMode.Impulse);
+    //        jumpCount++;
+    //    }
+    //}
 
     void OnCollisionEnter(Collision collision)
     {
@@ -275,6 +275,23 @@ public class DraculaController : MonoBehaviour
     public static void setDamageNum(float damage)
     {
         damageNum = damage;
+    }
+
+    public void ResetPlayer()
+    {
+        currentHealth = maxHealth;
+        isBeingDamaged = false;
+        isInLight = false;
+        CancelInvoke("DamageHealth");
+        healthBar.SetHealth(currentHealth);
+        DamageIndicator.enabled = false;
+    }
+
+    public void Die()
+    {
+        currentHealth = 0;
+        healthBar.SetHealth(currentHealth);
+        gameOverManager.GameOver();
     }
 
     void DamageHealth()
