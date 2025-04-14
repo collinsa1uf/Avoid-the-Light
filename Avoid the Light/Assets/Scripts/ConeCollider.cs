@@ -10,12 +10,6 @@ public class ConeCollider : MonoBehaviour
         parent = gameObject.transform.parent;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("Player"))
