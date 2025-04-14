@@ -61,6 +61,7 @@ public class DraculaController : MonoBehaviour
         Cursor.visible = false; // Hide cursor when playing.
 
         rb = GetComponent<Rigidbody>();
+        rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
         capsuleCollider = GetComponent<CapsuleCollider>();
         DamageIndicator = GameObject.Find("DamageIndicator").GetComponent<Image>();
         DamageIndicator.enabled = false;
@@ -87,7 +88,7 @@ public class DraculaController : MonoBehaviour
                 jumpCount = 0;
             }
 
-            if (Input.GetKeyDown(KeyCode.Space) && jumpCount < 1)
+            if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
             {
                 rb.AddForce(Vector3.up * jumpStrength, ForceMode.Impulse);
                 jumpCount++;
