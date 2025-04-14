@@ -9,7 +9,6 @@ public class LightCollisionManager : MonoBehaviour
     private static GameObject spotlightHittingCurtain = null;
     private static bool hitPlayer = false;
     private bool isVisible = false;
-    private bool isNearLight = false;
 
     private void Start()
     {

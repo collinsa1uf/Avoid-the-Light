@@ -46,6 +46,7 @@ public class DraculaController : MonoBehaviour
     private bool isBeingHealed = false;
     public static bool isInLight;
     public static bool isNearLight;
+    public static bool killPlayer = false;
     private bool nearLightIndicatorShowing = false;
     public HealthBar healthBar;
 
@@ -92,7 +93,9 @@ public class DraculaController : MonoBehaviour
 
         gameOverManager = FindFirstObjectByType<GameOverMenu>();
 
+        isNearLight = false;
         isInLight = false;
+        killPlayer= false;
 
         walkAudioSource = gameObject.AddComponent<AudioSource>();
         breathAudioSource = gameObject.AddComponent<AudioSource>();
@@ -136,6 +139,7 @@ public class DraculaController : MonoBehaviour
             // ===== Health behaviors =====
             DamagePlayer();
             RegenPlayer();
+            Die();
             //Debug.Log("Health: " + currentHealth);
         }
     }
@@ -287,11 +291,19 @@ public class DraculaController : MonoBehaviour
         DamageIndicator.enabled = false;
     }
 
-    public void Die()
+    public static void SetKillPlayer(bool kill)
     {
-        currentHealth = 0;
-        healthBar.SetHealth(currentHealth);
-        gameOverManager.GameOver();
+        killPlayer = kill;
+    }
+
+    private void Die()
+    {
+        if (killPlayer)
+        {
+            currentHealth = 0;
+            healthBar.SetHealth(currentHealth);
+            gameOverManager.GameOver();
+        }
     }
 
     void DamageHealth()
