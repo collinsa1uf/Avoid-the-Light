@@ -48,7 +48,7 @@ public class DoorScript : MonoBehaviour
     void TryOpenDoor()
     {
         // Uses public static bool from GrabKey.cs to see if a key is collected.
-        if (GrabKey.hasKey & !isOpen && isLocked)
+        if (GrabKey.hasKey && !isOpen && isLocked)
             StartCoroutine(OpenDoor());
         else if (!GrabKey.hasKey && isLocked)
             StartCoroutine(ShowLockedMessage());
