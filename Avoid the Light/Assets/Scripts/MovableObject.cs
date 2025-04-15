@@ -16,6 +16,8 @@ public class MovableObject : MonoBehaviour
     private bool isMoving = false;
     private Transform player;
 
+    public GameObject lightParticles;
+
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -88,6 +90,7 @@ public class MovableObject : MonoBehaviour
 
             if (playerAnimator) playerAnimator.SetBool("isPushing", false);
             if (moveSound) moveSound.Stop();
+            if (lightParticles) lightParticles.gameObject.SetActive(false);
 
             isMoving = false;
         }
