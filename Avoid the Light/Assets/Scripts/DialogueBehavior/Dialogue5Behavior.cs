@@ -6,27 +6,41 @@ using UnityEngine.SceneManagement;
 
 public class FifthDialogueTrigger : MonoBehaviour
 {
-    public Image FifthDialoguePopup;
-    public TextMeshProUGUI StoryDialogue5;
+    public Image SecondDialoguePopup;
+    public TextMeshProUGUI StoryDialogue2;
+    public Image fadeOverlay;
     private bool isPopupActive = false;
-    private bool hasTriggeredDialogue = false;  
-    public float fadeDuration = 1f;  
+    private bool hasTriggeredDialogue = false;
+    public float fadeDuration = 1f;
+
+    private GameObject player;
+    private DraculaController draculaController;
 
     void Start()
     {
-        FifthDialoguePopup.gameObject.SetActive(false);
-        StoryDialogue5.gameObject.SetActive(false);
+        SecondDialoguePopup.gameObject.SetActive(false);
+        StoryDialogue2.gameObject.SetActive(false);
 
-        
-        SetAlpha(FifthDialoguePopup, 0f);
-        SetAlpha(StoryDialogue5, 0f);
+        SetAlpha(SecondDialoguePopup, 0f);
+        SetAlpha(StoryDialogue2, 0f);
+
+        if (fadeOverlay != null)
+        {
+            SetAlpha(fadeOverlay, 0f);
+        }
+
+        player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+        {
+            draculaController = player.GetComponent<DraculaController>();
+        }
     }
 
     void Update()
     {
         if (isPopupActive && Input.GetKeyDown(KeyCode.X))
         {
-            ClosePopup();
+            StartCoroutine(FadeOutAndLoadCredits());
         }
     }
 
@@ -34,52 +48,75 @@ public class FifthDialogueTrigger : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player") && !hasTriggeredDialogue)
         {
-            FifthDialoguePopup.gameObject.SetActive(true);
-            StoryDialogue5.gameObject.SetActive(true);
+            SecondDialoguePopup.gameObject.SetActive(true);
+            StoryDialogue2.gameObject.SetActive(true);
             isPopupActive = true;
             hasTriggeredDialogue = true;
-            
+
+            if (draculaController != null)
+            {
+                draculaController.InDialogue();
+                draculaController.enabled = false;
+            }
+
             StartCoroutine(FadeIn());
         }
     }
 
     void ClosePopup()
     {
-        FifthDialoguePopup.gameObject.SetActive(false);
-        StoryDialogue5.gameObject.SetActive(false);
+        SecondDialoguePopup.gameObject.SetActive(false);
+        StoryDialogue2.gameObject.SetActive(false);
         isPopupActive = false;
 
-        Time.timeScale = 1f; // Resume time
-        PauseMenu.isPaused = false;
+        if (draculaController != null)
+        {
+            draculaController.enabled = true;
+        }
+
         SceneManager.LoadScene("Credits");
-        Cursor.visible = true;
     }
 
-    
     private IEnumerator FadeIn()
     {
         float time = 0f;
 
-        
         while (time < fadeDuration)
         {
             time += Time.deltaTime;
-            float alpha = Mathf.Clamp01(time / fadeDuration);  
-            SetAlpha(FifthDialoguePopup, alpha);
-            SetAlpha(StoryDialogue5, alpha);
+            float alpha = Mathf.Clamp01(time / fadeDuration);
+            SetAlpha(SecondDialoguePopup, alpha);
+            SetAlpha(StoryDialogue2, alpha);
             yield return null;
         }
 
-        
-        SetAlpha(FifthDialoguePopup, 1f);
-        SetAlpha(StoryDialogue5, 1f);
-
-        PauseMenu.isPaused = true; // restrict player movement.
-        yield return new WaitForSeconds(0.5f); // Delay before pausing to ensure dialogue fades in
-        Time.timeScale = 0f; // Since it's the last one I want to pause the game for the player as they read it.
+        SetAlpha(SecondDialoguePopup, 1f);
+        SetAlpha(StoryDialogue2, 1f);
     }
 
-  
+    private IEnumerator FadeOutAndLoadCredits()
+    {
+        if (fadeOverlay != null)
+        {
+            fadeOverlay.gameObject.SetActive(true);
+            float time = 0f;
+
+            // Make cursor visible and unlocked
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+
+            while (time < fadeDuration)
+            {
+                time += Time.deltaTime;
+                float alpha = Mathf.Clamp01(time / fadeDuration);
+                SetAlpha(fadeOverlay, alpha);
+                yield return null;
+            }
+        }
+
+        SceneManager.LoadScene("Credits");
+    }
+
     private void SetAlpha(Graphic graphic, float alpha)
     {
         Color color = graphic.color;
