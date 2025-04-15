@@ -91,6 +91,7 @@ public class DraculaController : MonoBehaviour
         NearLightIndicator.enabled = false;
 
         currentRotation = new Vector3(-180, 0, 0);
+        Rotate();
 
         yPosition = Camera.main.GetComponent<Transform>().localPosition.y;
 
@@ -189,6 +190,12 @@ public class DraculaController : MonoBehaviour
         }
     }
 
+    public void InDialogue()
+    {
+        rb.linearVelocity = new Vector3(0, 0, 0);
+        SoundFXManager.instance.StopLoopingSound(walkAudioSource);
+        SoundFXManager.instance.StopLoopingSound(breathAudioSource);
+    }
 
     //void Jump()
     //{
