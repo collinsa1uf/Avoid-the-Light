@@ -102,7 +102,9 @@ public class LightCollisionManager : MonoBehaviour
     {
         if (spotlightHittingCurtain != null)
         {
+            hitPlayer = false;
             spotlightHittingCurtain.SetActive(false);
+            spotlightHittingCurtain = null;
         }
     }
 

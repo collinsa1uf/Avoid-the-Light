@@ -6931,7 +6931,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   crouchHeight: 0.8
-  standHeight: 1.5
+  standHeight: 1.725
   checkHeightOffset: 1.1
   obstacleLayer:
     serializedVersion: 2
@@ -7034,7 +7034,7 @@ Transform:
   m_GameObject: {fileID: 101236216}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -25.484177, y: 0.7499997, z: -13.644697}
+  m_LocalPosition: {x: -25.484177, y: 0.7504563, z: -13.644697}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7062,9 +7062,9 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.3
-  m_Height: 1.5
+  m_Height: 1.7240868
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0.11204338, z: 0}
 --- !u!43 &102758939
 Mesh:
   m_ObjectHideFlags: 0
@@ -58595,6 +58595,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Dracula_Table (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 3f58efcd2c9cc424c9acb90c27ff4087, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -65634,6 +65638,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 3f58efcd2c9cc424c9acb90c27ff4087, type: 3}
       propertyPath: m_Name
       value: Dracula_Table (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 3f58efcd2c9cc424c9acb90c27ff4087, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -79603,7 +79611,7 @@ GameObject:
   - component: {fileID: 1605814393}
   - component: {fileID: 1605814392}
   - component: {fileID: 1605814391}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (32)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -80004,6 +80012,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 3f58efcd2c9cc424c9acb90c27ff4087, type: 3}
       propertyPath: m_Name
       value: Dracula_Table (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 3f58efcd2c9cc424c9acb90c27ff4087, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -95385,7 +95397,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.1
+  near clip plane: 0.01
   far clip plane: 1000
   field of view: 60.000004
   orthographic: 0
@@ -95414,7 +95426,7 @@ Transform:
   m_GameObject: {fileID: 1943397208}
   serializedVersion: 2
   m_LocalRotation: {x: -2.9103828e-10, y: -0.0000000074505797, z: -0, w: 1}
-  m_LocalPosition: {x: 0.001, y: 0.39913929, z: 0.014945844}
+  m_LocalPosition: {x: 0.001, y: 0.825, z: 0.014945844}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

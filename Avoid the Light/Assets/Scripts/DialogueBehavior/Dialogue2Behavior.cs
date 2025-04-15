@@ -49,6 +49,7 @@ public class secondDialogueTrigger : MonoBehaviour
 
             if (draculaController != null)
             {
+                draculaController.InDialogue();
                 draculaController.enabled = false;
             }
 

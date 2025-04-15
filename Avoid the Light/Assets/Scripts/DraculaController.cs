@@ -26,8 +26,9 @@ public class DraculaController : MonoBehaviour
     private CapsuleCollider capsuleCollider;
     public float crouchHeight = 0.5f;
     public float standHeight = 2.0f;
-    public float checkHeightOffset = 0.9f; //I think this height is good but adjust if needed
+    public float checkHeightOffset = 1.0f; //I think this height is good but adjust if needed
     public LayerMask obstacleLayer;
+    private float yPosition;
 
 
     private Vector3 currentRotation;
@@ -90,6 +91,9 @@ public class DraculaController : MonoBehaviour
         NearLightIndicator.enabled = false;
 
         currentRotation = new Vector3(-180, 0, 0);
+        Rotate();
+
+        yPosition = Camera.main.GetComponent<Transform>().localPosition.y;
 
         gameOverManager = FindFirstObjectByType<GameOverMenu>();
 
@@ -186,6 +190,12 @@ public class DraculaController : MonoBehaviour
         }
     }
 
+    public void InDialogue()
+    {
+        rb.linearVelocity = new Vector3(0, 0, 0);
+        SoundFXManager.instance.StopLoopingSound(walkAudioSource);
+        SoundFXManager.instance.StopLoopingSound(breathAudioSource);
+    }
 
     //void Jump()
     //{
@@ -225,6 +235,7 @@ public class DraculaController : MonoBehaviour
                 {
                     isCrouched = false;
                     capsuleCollider.height = standHeight;
+                    Camera.main.transform.localPosition = new Vector3(0, yPosition, 0);
                 }
             }
             else
@@ -232,6 +243,7 @@ public class DraculaController : MonoBehaviour
                 //the code for crouching down
                 isCrouched = true;
                 capsuleCollider.height = crouchHeight;
+                Camera.main.transform.localPosition = new Vector3(0, yPosition - 0.45f, 0);
             }
         }
     }
@@ -290,6 +302,7 @@ public class DraculaController : MonoBehaviour
         CancelInvoke("DamageHealth");
         healthBar.SetHealth(currentHealth);
         DamageIndicator.enabled = false;
+        NearLightIndicator.enabled = false;
     }
 
     public static void SetKillPlayer(bool kill)
@@ -316,6 +329,8 @@ public class DraculaController : MonoBehaviour
         {
             currentHealth = 0;
             gameOverManager.GameOver();
+            SoundFXManager.instance.StopLoopingSound(heartbeatAudioSource);
+            SoundFXManager.instance.StopLoopingSound(burningAudioSource);
         }
     }
 
