@@ -1,21 +1,21 @@
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
-using JetBrains.Annotations;
 
 public class GrabKey : MonoBehaviour
 {
-    public GameObject inHandKey;
-    public GameObject modelKey;
+    public GameObject silverKey;
+    public GameObject goldKey;
     public TMP_Text dialogueText;
+
     private bool isNearKey = false;
     public static bool hasKey = false;
+    public static string heldKeyTag = "";
 
     void Start()
     {
-        inHandKey.SetActive(false);
-        dialogueText.gameObject.SetActive(false);
+        if (silverKey != null) { silverKey.SetActive(false); }
+        if (goldKey != null) { goldKey.SetActive(false); }
+        if (dialogueText != null) { dialogueText.gameObject.SetActive(false); }
     }
 
     void OnTriggerEnter(Collider other)
@@ -23,8 +23,11 @@ public class GrabKey : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             isNearKey = true;
-            dialogueText.gameObject.SetActive(true);
-            dialogueText.text = "Press E to take the key";
+            if (dialogueText)
+            {
+                dialogueText.gameObject.SetActive(true);
+                dialogueText.text = "Press E to take the key";
+            }
         }
     }
 
@@ -33,7 +36,7 @@ public class GrabKey : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             isNearKey = false;
-            dialogueText.gameObject.SetActive(false);
+            if(dialogueText) dialogueText.gameObject.SetActive(false);
         }
     }
 
@@ -41,10 +44,23 @@ public class GrabKey : MonoBehaviour
     {
         if (isNearKey && Input.GetKeyDown(KeyCode.E))
         {
-            inHandKey.SetActive(true);
-            dialogueText.gameObject.SetActive(false);
-            modelKey.SetActive(false);
+            string keyTag = gameObject.tag;
+
+            // Enable the correct in-hand key
+            if (keyTag == "Silver Lock" && silverKey != null)
+            {
+                silverKey.SetActive(true);
+            }
+            else if (keyTag == "Gold Lock" && goldKey != null)
+            {
+                goldKey.SetActive(true);
+            }
+
+            heldKeyTag = keyTag;
             hasKey = true;
+
+            if (dialogueText != null) dialogueText.gameObject.SetActive(false);
+            gameObject.SetActive(false); // Hide this key in the world
         }
     }
 }

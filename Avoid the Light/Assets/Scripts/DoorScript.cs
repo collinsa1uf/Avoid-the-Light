@@ -7,6 +7,7 @@ public class DoorScript : MonoBehaviour
     public Transform doorHinge; // Assign door
     public TextMeshProUGUI lockedText;
     public TextMeshProUGUI openedText;
+    public TextMeshProUGUI wrongKeyText;
     public GameObject keyInHand;
     public GameObject interactionIndicator;
     public float openAngle = 90f;
@@ -57,16 +58,25 @@ public class DoorScript : MonoBehaviour
 
     IEnumerator OpenDoor()
     {
-        SoundFXManager.instance.PlaySoundFXClip(creakAudioClip, 0.6f);
-        SoundFXManager.instance.PlaySoundFXClip(doorOpenClip, 0.6f);
-
-        isOpen = true;
-        if (GrabKey.hasKey)
+        if (GrabKey.hasKey && gameObject.CompareTag(GrabKey.heldKeyTag))
         {
             GrabKey.hasKey = false; // Key is used.
             keyInHand.gameObject.SetActive(false);
+            isOpen = true;
             StartCoroutine(ShowOpenedMessage());
         }
+        else if(GrabKey.hasKey && !gameObject.CompareTag(GrabKey.heldKeyTag))
+        {
+            StartCoroutine(ShowWrongKeyMessage());
+            yield break;
+        }
+        else if (!isLocked)
+        {
+            isOpen = true;
+        }
+
+        SoundFXManager.instance.PlaySoundFXClip(creakAudioClip, 0.6f);
+        SoundFXManager.instance.PlaySoundFXClip(doorOpenClip, 0.6f);
 
         interactionIndicator.gameObject.SetActive(false);
 
@@ -89,6 +99,20 @@ public class DoorScript : MonoBehaviour
             openedText.gameObject.SetActive(true);
             yield return new WaitForSeconds(1.5f);
             openedText.gameObject.SetActive(false);
+        }
+
+        if (isPlayerNearby && interactionIndicator) interactionIndicator.SetActive(true); // Show it again if player is still nearby
+    }
+
+    IEnumerator ShowWrongKeyMessage()
+    {
+        if (interactionIndicator) interactionIndicator.SetActive(false);
+
+        if (wrongKeyText)
+        {
+            wrongKeyText.gameObject.SetActive(true);
+            yield return new WaitForSeconds(1.5f);
+            wrongKeyText.gameObject.SetActive(false);
         }
 
         if (isPlayerNearby && interactionIndicator) interactionIndicator.SetActive(true); // Show it again if player is still nearby

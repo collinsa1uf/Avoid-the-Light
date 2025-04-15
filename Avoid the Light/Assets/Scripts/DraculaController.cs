@@ -89,7 +89,7 @@ public class DraculaController : MonoBehaviour
         NearLightIndicator = GameObject.Find("NearLightIndicator").GetComponent<Image>();
         NearLightIndicator.enabled = false;
 
-        currentRotation = new Vector3(-90, 0, 0);
+        currentRotation = new Vector3(-180, 0, 0);
 
         gameOverManager = FindFirstObjectByType<GameOverMenu>();
 
@@ -283,6 +283,7 @@ public class DraculaController : MonoBehaviour
 
     public void ResetPlayer()
     {
+        killPlayer = false;
         currentHealth = maxHealth;
         isBeingDamaged = false;
         isInLight = false;
