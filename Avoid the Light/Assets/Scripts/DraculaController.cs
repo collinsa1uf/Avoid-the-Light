@@ -290,6 +290,7 @@ public class DraculaController : MonoBehaviour
         CancelInvoke("DamageHealth");
         healthBar.SetHealth(currentHealth);
         DamageIndicator.enabled = false;
+        NearLightIndicator.enabled = false;
     }
 
     public static void SetKillPlayer(bool kill)
@@ -316,6 +317,8 @@ public class DraculaController : MonoBehaviour
         {
             currentHealth = 0;
             gameOverManager.GameOver();
+            SoundFXManager.instance.StopLoopingSound(heartbeatAudioSource);
+            SoundFXManager.instance.StopLoopingSound(burningAudioSource);
         }
     }
 
