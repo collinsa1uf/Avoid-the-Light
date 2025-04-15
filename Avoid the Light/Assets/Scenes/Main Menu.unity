@@ -906,6 +906,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2065024377}
     m_Modifications:
+    - target: {fileID: 1369048552028804143, guid: 24914091c2d8a7a4ab5a01a0992b6755, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1369048552028804143, guid: 24914091c2d8a7a4ab5a01a0992b6755, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1369048552028804143, guid: 24914091c2d8a7a4ab5a01a0992b6755, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1369048552028804143, guid: 24914091c2d8a7a4ab5a01a0992b6755, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5124136020356348163, guid: 24914091c2d8a7a4ab5a01a0992b6755, type: 3}
       propertyPath: m_Name
       value: Buttons
@@ -994,10 +1010,46 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6689536484776273813, guid: 24914091c2d8a7a4ab5a01a0992b6755, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6689536484776273813, guid: 24914091c2d8a7a4ab5a01a0992b6755, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6689536484776273813, guid: 24914091c2d8a7a4ab5a01a0992b6755, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6689536484776273813, guid: 24914091c2d8a7a4ab5a01a0992b6755, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8006873431316114099, guid: 24914091c2d8a7a4ab5a01a0992b6755, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8006873431316114099, guid: 24914091c2d8a7a4ab5a01a0992b6755, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8006873431316114099, guid: 24914091c2d8a7a4ab5a01a0992b6755, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8006873431316114099, guid: 24914091c2d8a7a4ab5a01a0992b6755, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8840966307897076413, guid: 24914091c2d8a7a4ab5a01a0992b6755, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 744084184}
+    - target: {fileID: 8840966307897076413, guid: 24914091c2d8a7a4ab5a01a0992b6755, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: TutorialRevampUPDATED
+      objectReference: {fileID: 0}
     - target: {fileID: 9129904341466650360, guid: 24914091c2d8a7a4ab5a01a0992b6755, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 

@@ -20,6 +20,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Whitebox.unity
     guid: 3d1886f5903639c42ba9bf8c573e3a67
+  - enabled: 1
+    path: Assets/Scenes/TutorialRevampUPDATED.unity
+    guid: bcc1e898829a11049a2dbbe5d335a2e4
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
