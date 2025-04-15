@@ -9,7 +9,10 @@ public class secondDialogueTrigger : MonoBehaviour
     public TextMeshProUGUI StoryDialogue2;
     private bool isPopupActive = false;
     private bool hasTriggeredDialogue = false;  
-    public float fadeDuration = 1f;  
+    public float fadeDuration = 1f;
+
+    private GameObject player;
+    private DraculaController draculaController;
 
     void Start()
     {
@@ -19,6 +22,12 @@ public class secondDialogueTrigger : MonoBehaviour
         
         SetAlpha(SecondDialoguePopup, 0f);
         SetAlpha(StoryDialogue2, 0f);
+
+        player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+        {
+            draculaController = player.GetComponent<DraculaController>();
+        }
     }
 
     void Update()
@@ -38,7 +47,12 @@ public class secondDialogueTrigger : MonoBehaviour
             isPopupActive = true;
             hasTriggeredDialogue = true;
 
-            
+            if (draculaController != null)
+            {
+                draculaController.enabled = false;
+            }
+
+
             StartCoroutine(FadeIn());
         }
     }
@@ -48,6 +62,11 @@ public class secondDialogueTrigger : MonoBehaviour
         SecondDialoguePopup.gameObject.SetActive(false);
         StoryDialogue2.gameObject.SetActive(false);
         isPopupActive = false;
+
+        if (draculaController != null)
+        {
+            draculaController.enabled = true;
+        }
     }
 
    
