@@ -25,11 +25,12 @@ public class Raycast : MonoBehaviour
     void UseRaycast()
     {
         RaycastHit hit;
-        if (Physics.Raycast(lightCollider.transform.position, lightCollider.transform.forward, out hit))
+        LayerMask layerMask = Physics.AllLayers & ~(1 << 9);
+        if (Physics.Raycast(lightCollider.transform.position, lightCollider.transform.forward, out hit, Mathf.Infinity, layerMask))
         {
             if (hit.transform.gameObject.layer == 6)
             {
-                LightCollisionManager.SetSpotlightHittingCurtain(gameObject);
+                LightCollisionManager.SetSpotlightBeingBlocked(gameObject);
             }
         }
     }
