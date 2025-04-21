@@ -22,7 +22,7 @@ public class LightCollisionManager : MonoBehaviour
         //CheckIfHittingPlayer();
         CheckIfVisible();
 
-        Debug.Log("1. " + hitPlayer + "  2. " + isVisible);
+        //Debug.Log("1. " + hitPlayer + "  2. " + isVisible);
         if (hitPlayer && isVisible)
         {
             DraculaController.setDamageNum(parent.gameObject.GetComponent<Raycast>().GetDamage());
@@ -80,7 +80,7 @@ public class LightCollisionManager : MonoBehaviour
             LayerMask layerMask = Physics.AllLayers & ~(1 << 9);
             if (Physics.Linecast(player.transform.position, parent.GetComponent<BoxCollider>().transform.position, out hit, layerMask, QueryTriggerInteraction.Ignore)) 
             {
-                Debug.Log(hit.collider.gameObject.name);
+                //Debug.Log(hit.collider.gameObject.name);
                 if (hit.collider.gameObject.tag == "Light")
                 {
                     isVisible = true;
