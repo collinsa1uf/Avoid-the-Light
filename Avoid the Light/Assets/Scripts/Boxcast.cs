@@ -58,7 +58,7 @@ public class Boxcast : MonoBehaviour
         {
             if (hit2.transform.gameObject.layer == 6)
             {
-                LightCollisionManager.SetSpotlightBeingBlocked(gameObject);
+                LightCollisionManager.SetSpotlightHittingCurtain(gameObject);
             }
         }
     }

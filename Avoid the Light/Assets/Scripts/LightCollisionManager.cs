@@ -6,7 +6,7 @@ public class LightCollisionManager : MonoBehaviour
     private static GameObject spotlightHittingPlayer = null;
     private static BoxCollider boxCollider = null;
     private static Transform parent = null;
-    private static GameObject spotlightBeingBlocked = null;
+    private static GameObject spotlightHittingCurtain = null;
     private static bool hitPlayer = false;
     private bool isVisible = false;
 
@@ -40,7 +40,7 @@ public class LightCollisionManager : MonoBehaviour
             DraculaController.isNearLight = false;
         }
 
-        CheckIfBeingBlocked();
+        CheckIfHittingCurtain();
     }
 
     public static void SetSpotlightHittingPlayer(GameObject spotlight)
@@ -77,8 +77,8 @@ public class LightCollisionManager : MonoBehaviour
         if (parent != null)
         {
             RaycastHit hit;
-            LayerMask layerMask = Physics.AllLayers & ~(1 << 9);
-            if (Physics.Linecast(player.transform.position, parent.GetComponent<BoxCollider>().transform.position, out hit, layerMask, QueryTriggerInteraction.Ignore)) 
+            LayerMask allLayers = Physics.AllLayers;
+            if (Physics.Linecast(player.transform.position, parent.GetComponent<BoxCollider>().transform.position, out hit, allLayers, QueryTriggerInteraction.Ignore)) 
             {
                 //Debug.Log(hit.collider.gameObject.name);
                 if (hit.collider.gameObject.tag == "Light")
@@ -93,18 +93,18 @@ public class LightCollisionManager : MonoBehaviour
         }
     }
 
-    public static void SetSpotlightBeingBlocked(GameObject spotlight)
+    public static void SetSpotlightHittingCurtain(GameObject spotlight)
     {
-        spotlightBeingBlocked = spotlight;
+        spotlightHittingCurtain = spotlight;
     }
 
-    void CheckIfBeingBlocked()
+    void CheckIfHittingCurtain()
     {
-        if (spotlightBeingBlocked != null)
+        if (spotlightHittingCurtain != null)
         {
             hitPlayer = false;
-            spotlightBeingBlocked.SetActive(false);
-            spotlightBeingBlocked = null;
+            spotlightHittingCurtain.SetActive(false);
+            spotlightHittingCurtain = null;
         }
     }
 
