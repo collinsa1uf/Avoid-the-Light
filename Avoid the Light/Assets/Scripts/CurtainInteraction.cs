@@ -7,8 +7,8 @@ public class CurtainInteraction : MonoBehaviour
     public Animator curtainAnimator; 
     public GameObject promptText; 
 
-    private bool isPlayerNear = false;
-    private bool isCurtainClosed = false;
+    [SerializeField] private bool isPlayerNear = false;
+    [SerializeField] private bool isCurtainClosed = false;
 
     public AudioClip curtainAudioClip;
 
